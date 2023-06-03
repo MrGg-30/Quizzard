@@ -1,5 +1,6 @@
 package com.freeuni.quizzard.config;
 
+import com.freeuni.quizzard.exception.UserAlreadyExistsException;
 import com.freeuni.quizzard.model.UserCredentials;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -40,8 +41,8 @@ public class KeycloakConfig implements CommandLineRunner {
     private String adminRole;
 
     private static final List<UserCredentials> USER_CREDENTIALS = Arrays.asList(
-            new UserCredentials("admin", "admin"),
-            new UserCredentials("user", "user"));
+            new UserCredentials("admin","admin@admin.com", "admin"),
+            new UserCredentials("user", "user@user.com","user"));
 
     @Override
     public void run(String... args) {
@@ -57,12 +58,30 @@ public class KeycloakConfig implements CommandLineRunner {
         keycloakAdmin.realms().create(realmRepresentation);
     }
 
+    public void createNewUser(String username, String email, String password) {
+        if(isUsernameUnique(username) && isEmailUnique(email)) {
+            UserRepresentation user = createUserRepresentation(new UserCredentials(username, email, password));
+            keycloakAdmin.realm(quizzardRealm).users().create(user);
+        } else {
+            throw new UserAlreadyExistsException("Username Or Email is already used");
+        }
+    }
     private Optional<RealmRepresentation> findRealmByName(String realmName) {
         return keycloakAdmin.realms()
                 .findAll()
                 .stream()
                 .filter(r -> r.getRealm().equals(realmName))
                 .findAny();
+    }
+
+    private boolean isEmailUnique(String email) {
+        List<UserRepresentation> users = keycloakAdmin.realm(quizzardRealm).users().searchByEmail(email, true);
+        return users.isEmpty();
+    }
+
+    public boolean isUsernameUnique(String username) {
+        List<UserRepresentation> users = keycloakAdmin.realm(quizzardRealm).users().search(username);
+        return users.isEmpty();
     }
 
     private RealmRepresentation createRealm() {
@@ -95,6 +114,8 @@ public class KeycloakConfig implements CommandLineRunner {
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setUsername(userPass.username());
         userRepresentation.setEnabled(true);
+        userRepresentation.setEmail(userPass.email());
+        userRepresentation.setEmailVerified(true);
         userRepresentation.setCredentials(List.of(credentialRepresentation));
         userRepresentation.setClientRoles(getClientRoles(userPass));
 
