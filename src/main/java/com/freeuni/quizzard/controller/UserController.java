@@ -21,8 +21,9 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<String> addUser(@RequestBody UserCreationAttributes user) {
+        userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).
-                body(userService.createUser(user));
+                body("User was created successfully");
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
