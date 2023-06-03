@@ -3,6 +3,25 @@ quizzard:
   app:
     clientId: quizzard-app
     redirectUrl: http://localhost:3000/*
+  userRole: USER
+  adminRole: ADMIN
 
-  userRole: USER_ROLE
-  adminRole: ADMIN_ROLE
+spring:
+  application:
+    name: quizzard
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/realms/quizzard
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+app:
+  cors:
+    allowed-origins: http://localhost:3000
+
+jwt:
+  auth:
+    converter:
+      resource-id: quizzard-app
+      principal-attribute: preferred_username
