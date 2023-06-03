@@ -1,0 +1,8 @@
+quizzard:
+  realm: quizzard
+  app:
+    clientId: quizzard-app
+    redirectUrl: http://localhost:3000/*
+
+  userRole: USER_ROLE
+  adminRole: ADMIN_ROLE
