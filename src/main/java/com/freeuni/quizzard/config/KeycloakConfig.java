@@ -1,5 +1,6 @@
 package com.freeuni.quizzard.config;
 
+import com.freeuni.quizzard.AlreadyUsedException;
 import com.freeuni.quizzard.model.UserCredentials;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -92,7 +93,7 @@ public class KeycloakConfig implements CommandLineRunner {
 
             keycloakAdmin.realm(quizzardRealm).users().create(userRepresentation);
         } else {
-            System.out.println("Username Or Email is already used");
+            throw new AlreadyUsedException("Username Or Email is already used");
         }
     }
 
