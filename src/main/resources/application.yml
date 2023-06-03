@@ -3,6 +3,7 @@ quizzard:
   app:
     clientId: quizzard-app
     redirectUrl: http://localhost:3000/*
+    tokenEndpoint: http://localhost:8090/realms/quizzard/protocol/openid-connect/token
 
   userRole: USER_ROLE
   adminRole: ADMIN_ROLE
