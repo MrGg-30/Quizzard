@@ -1,7 +1,7 @@
 quizzard:
-  realm: quizzard-realm
+  realm: quizzard
   app:
-    clientId: movies-app
+    clientId: quizzard-app
     redirectUrl: http://localhost:3000/*
 
   userRole: USER_ROLE

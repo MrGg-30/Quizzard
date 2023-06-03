@@ -39,7 +39,7 @@ public class KeycloakConfig implements CommandLineRunner {
     @Value("${quizzard.adminRole}")
     private String adminRole;
 
-    private static final List<UserCredentials> MOVIES_APP_USERS = Arrays.asList(
+    private static final List<UserCredentials> USER_CREDENTIALS = Arrays.asList(
             new UserCredentials("admin", "admin"),
             new UserCredentials("user", "user"));
 
@@ -84,7 +84,7 @@ public class KeycloakConfig implements CommandLineRunner {
     }
 
     private List<UserRepresentation> createUserRepresentations() {
-        return MOVIES_APP_USERS.stream()
+        return USER_CREDENTIALS.stream()
                 .map(this::createUserRepresentation)
                 .toList();
     }
