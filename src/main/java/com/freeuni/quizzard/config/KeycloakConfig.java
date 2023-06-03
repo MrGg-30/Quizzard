@@ -57,12 +57,48 @@ public class KeycloakConfig implements CommandLineRunner {
         keycloakAdmin.realms().create(realmRepresentation);
     }
 
+    public void createNewUser(String username, String password) {
+        UserRepresentation user = createUserRepresentation(new UserCredentials(username, password));
+        keycloakAdmin.realm(quizzardRealm).users().create(user);
+    }
     private Optional<RealmRepresentation> findRealmByName(String realmName) {
         return keycloakAdmin.realms()
                 .findAll()
                 .stream()
                 .filter(r -> r.getRealm().equals(realmName))
                 .findAny();
+    }
+
+    public boolean isUsernameUnique(String username) {
+        List<UserRepresentation> users = keycloakAdmin.realm(quizzardRealm).users().search(username);
+        return users.isEmpty();
+    }
+
+    public void registerUser(String username, String email, String password) {
+        if(isUsernameUnique(username) && isEmailUnique(email)) {
+            UserRepresentation userRepresentation = new UserRepresentation();
+            userRepresentation.setUsername(username);
+            userRepresentation.setEnabled(true);
+            userRepresentation.setEmail(email);
+            userRepresentation.setEmailVerified(true);
+
+            CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
+            credentialRepresentation.setType(CredentialRepresentation.PASSWORD);
+            credentialRepresentation.setValue(password);
+
+            userRepresentation.setCredentials(List.of(credentialRepresentation));
+            Map<String, List<String>> roles = Map.of(clientId, List.of(userRole));
+            userRepresentation.setClientRoles(roles);
+
+            keycloakAdmin.realm(quizzardRealm).users().create(userRepresentation);
+        } else {
+            System.out.println("Username Or Email is already used");
+        }
+    }
+
+    private boolean isEmailUnique(String email) {
+        List<UserRepresentation> users = keycloakAdmin.realm(quizzardRealm).users().searchByEmail(email, true);
+        return users.isEmpty();
     }
 
     private RealmRepresentation createRealm() {
