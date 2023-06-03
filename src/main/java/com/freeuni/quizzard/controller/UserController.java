@@ -24,9 +24,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> addUser(@RequestBody UserCreationAttributes user) {
+    public ResponseEntity<String> addUser(@RequestBody UserCreationAttributes user) {
         userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully.");
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body("User was created successfully");
     }
 
     // secured endpoint
