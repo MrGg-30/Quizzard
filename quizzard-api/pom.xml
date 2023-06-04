@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.freeuni</groupId>
-	<artifactId>quizzard</artifactId>
+	<artifactId>quizzard-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>quizzard</name>
 	<description>Demo project for Spring Boot</description>
