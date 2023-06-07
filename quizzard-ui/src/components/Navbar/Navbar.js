@@ -4,16 +4,27 @@ import { faHippo, faHamburger, faExchange} from '@fortawesome/free-solid-svg-ico
 import {MenuItems} from "./MenuItems"
 import './Navbar.css'
 import {Button} from "../Button"
+import SignUpModal from '../SignUp/SignUpModal';
 
 class Navbar extends Component {
-    state = {clicked: false}
+    state = {clicked: false, 
+            isSignUpModalOpen: false}
 
+    
     handleClick = () => {
         this.setState( {clicked: !this.state.clicked})
     }
+    handleSignUpButtonClick = () => {
+        this.setState({ isSignUpModalOpen: true });
+    }
+    handleCloseModal = () => {
+        this.setState({ isSignUpModalOpen: false });
+      }
 
     render() {
         return (
+            <div>
+
             <nav className='NavbarItems'>
                 <h1 className="navbar-logo">Quizzard <FontAwesomeIcon icon={faHippo} /></h1>
                 <div className='menu-icon' onClick={this.handleClick}>
@@ -33,8 +44,10 @@ class Navbar extends Component {
                         )
                     })} 
                 </ul>
-                <Button> Sign up</Button>
+                <Button onClick={this.handleSignUpButtonClick}> Sign up</Button>
             </nav>
+            {this.state.isSignUpModalOpen && <SignUpModal onClose={this.handleCloseModal} />}
+            </div>
         )
     }
 }
