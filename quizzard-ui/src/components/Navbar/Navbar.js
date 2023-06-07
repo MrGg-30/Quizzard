@@ -5,6 +5,7 @@ import {MenuItems} from "./MenuItems"
 import './Navbar.css'
 import {Button} from "../Button"
 import SignUpModal from '../SignUp/SignUpModal';
+import Modal from '../SignUp/Modal'
 
 class Navbar extends Component {
     state = {clicked: false, 
@@ -46,7 +47,8 @@ class Navbar extends Component {
                 </ul>
                 <Button onClick={this.handleSignUpButtonClick}> Sign up</Button>
             </nav>
-            {this.state.isSignUpModalOpen && <SignUpModal onClose={this.handleCloseModal} />}
+            {this.state.isSignUpModalOpen && <Modal onClose={this.handleCloseModal} />}
+            {/* {this.state.isSignUpModalOpen && <SignUpModal onClose={this.handleCloseModal} />} */}
             </div>
         )
     }
