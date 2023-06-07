@@ -25,52 +25,30 @@ const SignUpModal = ({ onClose }) => {
         password: password
     };
     const url = `${config.url.API_BASE_URL}/user/create`
-    axios.post(url, requestBody, )
+    axios.post(url, requestBody)
       .then(response => {
         // user created and logged in ? 
         authService.getToken(username, password)
             .then(token => {
                 authService.storeToken();
-                console.log('Token obtained:', token);
+                // console.log('Token obtained:', token);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-            console.log(authService.loadToken)
-            console.log(response.data);
+
       })
       .catch(error => {
         console.error(error);
       });
     };
 
-    // Handgling drag around
-    const modalRef = useRef(null);
-    let offsetX, offsetY;
-
-    const handleMouseDown = (event) => {
-        offsetX = event.clientX - modalRef.current.offsetLeft;
-        offsetY = event.clientY - modalRef.current.offsetTop;
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
-      };
-    
-      const handleMouseMove = (event) => {
-        modalRef.current.style.left = event.clientX - offsetX + 'px';
-        modalRef.current.style.top = event.clientY - offsetY + 'px';
-      };
-    
-      const handleMouseUp = () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-
 
   
 
   return (
-    <div className="modal" ref={modalRef}>
-      <div className="modal-header" onMouseDown={handleMouseDown}>
+    <div className="modal">
+      <div className="modal-header">
         <h2 className="modal-title">Sign Up</h2>
         <span className="modal-close" onClick={handleModalClose}>
           &times;

@@ -12,8 +12,7 @@ class AuthService {
       formData.append('username', username);
       formData.append('password', password);
       formData.append('client_id', config.url.KEYCLOAK_CLIENT_ID);
-
-      // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+      formData.append('grant_type', 'password');
 
       const response = await axios.post(config.url.KEYCLOAK_TOKEN_URL, formData.toString(), {
         headers: {
@@ -22,7 +21,7 @@ class AuthService {
       });
 
       if (response.status === 200) {
-        this.token = response.data.token;
+        this.token = response.data.access_token;
         return this.token;
       } else {
         throw new Error('Unable to get token');
@@ -33,12 +32,12 @@ class AuthService {
   }
 
   storeToken() {
-    // Store the token in local storage or any other storage mechanism of your choice
+    // Store the token in local storage 
     localStorage.setItem('token', this.token);
   }
 
   loadToken() {
-    // Load the token from local storage or any other storage mechanism of your choice
+    // Load the token from local storage
     this.token = localStorage.getItem('token');
     return this.token;
   }
