@@ -6,11 +6,6 @@ quizzard:
   userRole: USER
   adminRole: ADMIN
 
-  mongodb:
-    collection:
-      users: Users
-      quizzes: Quizzes
-
 spring:
   application:
     name: quizzard
