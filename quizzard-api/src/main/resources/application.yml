@@ -6,6 +6,11 @@ quizzard:
   userRole: USER
   adminRole: ADMIN
 
+  mongodb:
+    collection:
+      users: Users
+      quizzes: Quizzes
+
 spring:
   application:
     name: quizzard
@@ -15,6 +20,11 @@ spring:
         jwt:
           issuer-uri: http://localhost:8090/realms/quizzard
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  data:
+    mongodb:
+      database: quizzard
+      uri: mongodb+srv://root:quizzard@quizzard.xdju2p2.mongodb.net/
+
 
 app:
   cors:
