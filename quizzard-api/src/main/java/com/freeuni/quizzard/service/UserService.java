@@ -13,7 +13,6 @@ public class UserService {
     private final KeycloakService keycloakService;
     private final UserRepository userRepository;
 
-
     public void createUser(UserCreationAttributes user) {
         keycloakService.createNewUser(user.getUsername(), user.getEmail(), user.getPassword());
         User user1 = new User();
