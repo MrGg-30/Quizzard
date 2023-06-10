@@ -15,6 +15,9 @@ spring:
         jwt:
           issuer-uri: http://localhost:8090/realms/quizzard
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@localhost:27017/quizzard?authSource=admin
 
 app:
   cors:
