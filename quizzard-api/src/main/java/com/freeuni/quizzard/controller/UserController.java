@@ -3,7 +3,6 @@ package com.freeuni.quizzard.controller;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
 import com.freeuni.quizzard.model.UserCreationAttributes;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.freeuni.quizzard.service.UserService;
