@@ -22,12 +22,24 @@ const Modal = ({ onClose }) => {
     if (activeTab === 'login') {
       // Perform login logic here
       // ...
+      if (email.trim() === '' || password.trim() === '') {
+        setError('Please fill in all fields.');
+        return;
+      }
+
+      authService.getToken(email, password)
+      .then(token => {
+        authService.storeToken();
+      })
+      .catch(error => {
+        setError('Unable to get token');
+      });
 
       // Assuming login is successful, display success message and close the modal
       setSuccessMessage('Login successful!');
       setTimeout(() => {
         onClose();
-      }, 2000);
+      }, 1500);
     } else {
       if (username.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
         setError('Please fill in all fields.');
@@ -43,7 +55,6 @@ const Modal = ({ onClose }) => {
         setError('Password must be at least 8 characters long.');
         return;
       }
-    console.log("sign up?????")
       // Perform signup logic here
       // ...
       const requestBody = {
@@ -58,7 +69,7 @@ const Modal = ({ onClose }) => {
             authService.getToken(username, password)
                 .then(token => {
                     authService.storeToken();
-                    // console.log('Token obtained:', token);
+                    console.log('Token obtained:', token);
                 })
                 .catch(error => {
                     console.error('Error:', error);
