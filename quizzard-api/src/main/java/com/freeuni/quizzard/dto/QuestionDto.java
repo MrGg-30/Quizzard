@@ -1,16 +1,14 @@
-package com.freeuni.quizzard.data.mongo.model;
+package com.freeuni.quizzard.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class Question {
-
-    private String questionId;
+public class QuestionDto {
+    private String id;
 
     private String questionText;
 
