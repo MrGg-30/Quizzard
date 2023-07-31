@@ -1,5 +1,6 @@
 package com.freeuni.quizzard.controller;
 
+import com.freeuni.quizzard.data.mongo.model.Quiz;
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.QuizRequest;
 import com.freeuni.quizzard.service.QuizService;
@@ -30,10 +31,10 @@ public class QuizController {
     }
 
     @PostMapping()
-    public QuizRequest createQuiz(@RequestBody QuizRequest quizRequest) {
+    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizRequest quizRequest) {
+        QuizDto quizDto = quizService.createQuiz(quizRequest);
 
-        quizService.addQuestionToQuiz(quizRequest);
-
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body(quizDto);
     }
 }
