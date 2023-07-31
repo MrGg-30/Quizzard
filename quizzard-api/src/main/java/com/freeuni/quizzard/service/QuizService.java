@@ -1,11 +1,15 @@
 package com.freeuni.quizzard.service;
 
+import com.freeuni.quizzard.data.mongo.model.Question;
 import com.freeuni.quizzard.data.mongo.model.Quiz;
 import com.freeuni.quizzard.data.mongo.repository.QuizRepository;
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.mapper.QuizMapperImpl;
+import com.freeuni.quizzard.model.QuizRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Service
@@ -33,9 +37,25 @@ public class QuizService {
         return dto;
     }
 
-    public void saveQuiz() {
-        // TODO
+    public void addQuestionToQuiz(QuizRequest quizRequest){
+        Quiz quiz = quizRepository.findQuizByName(quizRequest.getName());
+
+        if (quiz == null) {
+            quiz = new Quiz();
+            quiz.setName(quizRequest.getName());
+            quiz.setDescription(quizRequest.getDescription());
+        }
+
+        Question question = new Question();
+        question.setQuestionText(quizRequest.getQuestionText());
+        question.setCorrectAnswer(quizRequest.getCorrectAnswer());
+        question.setPossibleAnswers(quizRequest.getPossibleAnswers());
+
+        if (quiz.getQuestions() == null) {
+            quiz.setQuestions(new ArrayList<>());
+        }
+        quiz.getQuestions().add(question);
+
+        quizRepository.save(quiz);
     }
-
-
 }

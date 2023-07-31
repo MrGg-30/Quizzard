@@ -23,6 +23,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/user/create", "/user/create/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/quiz/**", "/quiz/questions/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/quiz/**", "/quiz/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/user/email","/user/email/**").hasAnyRole(ADMIN,USER)
                  // TODO add endpoints to secure based on roles
                 .anyRequest().authenticated();
