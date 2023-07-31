@@ -19,5 +19,5 @@ public class QuizDto {
 
     private String description;
 
-    private List<Question> questions;
+    private List<QuestionDto> questions;
 }
