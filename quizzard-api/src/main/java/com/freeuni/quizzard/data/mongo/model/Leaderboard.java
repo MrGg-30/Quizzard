@@ -13,7 +13,7 @@ public class Leaderboard {
     @Id
     private String id;
 
-    private String userId;
+    private String username;
 
     private String quizId;
 

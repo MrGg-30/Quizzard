@@ -20,4 +20,8 @@ public class UserService {
         user1.setEmail(user.getEmail());
         userRepository.insert(user1);
     }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
 }
