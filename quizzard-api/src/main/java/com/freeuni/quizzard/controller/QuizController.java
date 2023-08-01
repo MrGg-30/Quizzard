@@ -1,6 +1,5 @@
 package com.freeuni.quizzard.controller;
 
-import com.freeuni.quizzard.data.mongo.model.Quiz;
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.QuizRequest;
 import com.freeuni.quizzard.service.QuizService;
