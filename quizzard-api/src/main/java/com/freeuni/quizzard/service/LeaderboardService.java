@@ -19,11 +19,14 @@ public class LeaderboardService {
 
     private final LeaderboardMapper leaderboardMapper;
 
+    private static final int LEADERBOARD_MAX_SIZE = 10;
+
     public List<LeaderboardDto> getLeaderboardByQuiz(String quizId) {
         List<Leaderboard> leaderboards = leaderboardRepository.findLeaderboardByQuizId(quizId);
         return leaderboards.stream()
                 .map(leaderboardMapper::toLeaderboardDto)
                 .sorted(Comparator.comparingDouble(LeaderboardDto::getScore).reversed())
+                .limit(LEADERBOARD_MAX_SIZE)
                 .collect(Collectors.toList());
     }
 }
