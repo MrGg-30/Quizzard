@@ -1,5 +1,6 @@
 package com.freeuni.quizzard.controller;
 
+import com.freeuni.quizzard.dto.UserDto;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
 import com.freeuni.quizzard.model.UserCreationAttributes;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,6 +39,14 @@ public class UserController {
         JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
         String email = (String) token.getTokenAttributes().get("email");
         return email;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> getUsers(@RequestParam String usernamePrefix) {
+        List<UserDto> users = userService.getUserByUsernamePrefix(usernamePrefix);
+
+        return ResponseEntity.status(HttpStatus.OK).
+                body(users);
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
