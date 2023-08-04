@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/quiz")
@@ -22,8 +24,8 @@ public class QuizController {
     private final QuizService quizService;
 
     @GetMapping("/questions")
-    public ResponseEntity<QuizDto> getRandomSequenceQuiz(@RequestParam @NonNull String name) {
-        QuizDto quizDto = quizService.getRandomSequenceQuiz(name);
+    public ResponseEntity<QuizDto> getRandomSequenceQuiz(@RequestParam @NonNull String category) {
+        QuizDto quizDto = quizService.getRandomSequenceQuiz(category);
 
         return ResponseEntity.status(HttpStatus.OK).
                 body(quizDto);
@@ -35,5 +37,11 @@ public class QuizController {
 
         return ResponseEntity.status(HttpStatus.CREATED).
                 body(quizDto);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getCategories() {
+        List<String> categories = quizService.getCategories();
+        return ResponseEntity.ok(categories);
     }
 }
