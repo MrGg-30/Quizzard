@@ -8,6 +8,9 @@ import com.freeuni.quizzard.model.RequestStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class FriendRequestService {
@@ -34,5 +37,13 @@ public class FriendRequestService {
             requestToUpdate.setStatus(RequestStatus.DECLINED);
             friendsRepository.save(requestToUpdate);
         }
+    }
+
+    public List<FriendRequest> getReceivedRequests(String username) {
+        List<FriendRequestEntity> requestEntities = friendsRepository.findAllByRequestReceiverAndStatus(username, RequestStatus.PENDING);
+        return requestEntities
+                .stream()
+                .map(mapper::fromEntity)
+                .collect(Collectors.toList());
     }
 }
