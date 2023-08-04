@@ -19,6 +19,8 @@ public class FriendRequestService {
 
     private final FriendRequestMapper mapper;
 
+    private final UserService userService;
+
     public void createNewRequest(FriendRequest request) {
         friendsRepository.insert(mapper.toFriendRequestEntity(request));
     }
@@ -28,6 +30,9 @@ public class FriendRequestService {
         if (requestToUpdate != null) {
             requestToUpdate.setStatus(RequestStatus.ACCEPTED);
             friendsRepository.save(requestToUpdate);
+
+            userService.addNewFriend(request.getFrom(), request.getTo());
+            userService.addNewFriend(request.getTo(), request.getFrom());
         }
     }
 
