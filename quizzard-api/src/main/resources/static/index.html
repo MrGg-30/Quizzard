@@ -5,6 +5,7 @@
     <script type="text/javascript">
             var stompClient = null;
             var privateStompClient = null;
+            var responseStompClient = null;
             var storedMessage = null
 
             var socket = new SockJS('/ws');
@@ -23,8 +24,19 @@
                 privateStompClient = Stomp.over(socket);
                 privateStompClient.connect({}, function(frame) {
                     console.log(frame);
-                    path = '/user/' + sender + '/private'
+                    path = '/user/' + sender + '/friend-request'
                     privateStompClient.subscribe(path, function(result) {
+                        console.log(result.body)
+                        show(JSON.parse(result.body));
+                    });
+                });
+
+                socket = new SockJS('/ws');
+                responseStompClient = Stomp.over(socket);
+                responseStompClient.connect({}, function(frame) {
+                    console.log(frame);
+                    path = '/user/' + sender + '/friend-response'
+                    responseStompClient.subscribe(path, function(result) {
                         console.log(result.body)
                         show(JSON.parse(result.body));
                     });
@@ -42,7 +54,7 @@
                 var text = document.getElementById('privateText').value;
                 var from = document.getElementById('from').value;
                 var to = document.getElementById('to').value;
-                stompClient.send("/app/private", {},
+                stompClient.send("/app/friend-request", {},
                   JSON.stringify({'to':to, 'text':text, 'from':from, 'status': 'PENDING'}));
             }
 
@@ -55,15 +67,9 @@
             }
 
             function acceptRequest() {
-                const url='http://localhost:8080/accept';
-                console.log(storedMessage)
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(storedMessage)
-                })
+                storedMessage.status = 'ACCEPTED'
+                stompClient.send("/app/friend-response", {},
+                    JSON.stringify(storedMessage));
                 console.log("accepting?")
             }
         </script>

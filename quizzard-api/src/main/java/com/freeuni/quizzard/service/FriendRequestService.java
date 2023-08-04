@@ -25,22 +25,15 @@ public class FriendRequestService {
         friendsRepository.insert(mapper.toFriendRequestEntity(request));
     }
 
-    public void acceptRequest(FriendRequest request) {
+    public void friendResponse(FriendRequest request) {
         FriendRequestEntity requestToUpdate = friendsRepository.findByRequestSenderAndRequestReceiver(request.getFrom(), request.getTo());
         if (requestToUpdate != null) {
-            requestToUpdate.setStatus(RequestStatus.ACCEPTED);
+            requestToUpdate.setStatus(request.getStatus());
             friendsRepository.save(requestToUpdate);
-
-            userService.addNewFriend(request.getFrom(), request.getTo());
-            userService.addNewFriend(request.getTo(), request.getFrom());
-        }
-    }
-
-    public void declineRequest(FriendRequest request) {
-        FriendRequestEntity requestToUpdate = friendsRepository.findByRequestSenderAndRequestReceiver(request.getFrom(), request.getTo());
-        if (requestToUpdate != null) {
-            requestToUpdate.setStatus(RequestStatus.DECLINED);
-            friendsRepository.save(requestToUpdate);
+            if (requestToUpdate.getStatus() == RequestStatus.ACCEPTED) {
+                userService.addNewFriend(request.getFrom(), request.getTo());
+                userService.addNewFriend(request.getTo(), request.getFrom());
+            }
         }
     }
 

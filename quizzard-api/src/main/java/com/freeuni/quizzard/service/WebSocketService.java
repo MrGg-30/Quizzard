@@ -10,7 +10,11 @@ public class WebSocketService {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    public void sendToUser(String userId, FriendRequest message) {
-        messagingTemplate.convertAndSendToUser(userId,"/private",message);
+    public void sendFriendRequest(String userId, FriendRequest message) {
+        messagingTemplate.convertAndSendToUser(userId,"/friend-request",message);
+    }
+
+    public void sendFriendResponse(String userId, FriendRequest message) {
+        messagingTemplate.convertAndSendToUser(userId,"/friend-response",message);
     }
 }
