@@ -5,6 +5,7 @@
     <script type="text/javascript">
             var stompClient = null;
             var privateStompClient = null;
+            var storedMessage = null
 
             var socket = new SockJS('/ws');
             stompClient = Stomp.over(socket);
@@ -15,15 +16,20 @@
                 });
             });
 
-            socket = new SockJS('/ws');
-            privateStompClient = Stomp.over(socket);
-            privateStompClient.connect({}, function(frame) {
+            function registerWs() {
+                var sender = document.getElementById('username').value
+
+                socket = new SockJS('/ws');
+                privateStompClient = Stomp.over(socket);
+                privateStompClient.connect({}, function(frame) {
                     console.log(frame);
-                    privateStompClient.subscribe('/user/specific', function(result) {
-                    console.log(result.body)
+                    path = '/user/' + sender + '/private'
+                    privateStompClient.subscribe(path, function(result) {
+                        console.log(result.body)
                         show(JSON.parse(result.body));
                     });
                 });
+            }
 
 
             function sendMessage() {
@@ -34,30 +40,53 @@
 
              function sendPrivateMessage() {
                 var text = document.getElementById('privateText').value;
+                var from = document.getElementById('from').value;
                 var to = document.getElementById('to').value;
                 stompClient.send("/app/private", {},
-                  JSON.stringify({'text':text, 'to':to}));
+                  JSON.stringify({'to':to, 'text':text, 'from':from, 'status': 'PENDING'}));
             }
 
             function show(message) {
+                storedMessage = message
                 var response = document.getElementById('messages');
                 var p = document.createElement('p');
                 p.innerHTML= "message: "  + message.text;
                 response.appendChild(p);
             }
+
+            function acceptRequest() {
+                const url='http://localhost:8080/accept';
+                console.log(storedMessage)
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(storedMessage)
+                })
+                console.log("accepting?")
+            }
         </script>
 </head>
 <body>
 <div>
+<!--    <div>-->
+<!--        <button id="sendMessage" onclick="sendMessage();">Send</button>-->
+<!--        <input type="text" id="text" placeholder="Text"/>-->
+<!--    </div>-->
     <div>
-        <button id="sendMessage" onclick="sendMessage();">Send</button>
-        <input type="text" id="text" placeholder="Text"/>
+        <button id="registerEndpoints" onclick="registerWs();">Register</button>
+        <input type="text" id="username" placeholder="Sender Username"/>
     </div>
     <br />
     <div>
         <button id="sendPrivateMessage" onclick="sendPrivateMessage();">Send Private</button>
         <input type="text" id="privateText" placeholder="Private Message"/>
+        <input type="text" id="from" placeholder="From"/>
         <input type="text" id="to" placeholder="To"/>
+    </div>
+    <div>
+        <button id="accept" onClick="acceptRequest();">Accept</button>
     </div>
     <br />
     <br />

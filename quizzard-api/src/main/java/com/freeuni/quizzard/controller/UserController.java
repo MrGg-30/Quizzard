@@ -4,12 +4,17 @@ import com.freeuni.quizzard.dto.UserDto;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
 import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.model.UserCreationAttributes;
+import com.freeuni.quizzard.service.FriendRequestService;
+import com.freeuni.quizzard.service.WebSocketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.freeuni.quizzard.service.UserService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,9 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
-@RequestMapping
+@RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -59,11 +64,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @MessageMapping("/application")
-    @SendTo("/all/messages")
-    public FriendRequest send(FriendRequest message) throws Exception {
-        String time = new SimpleDateFormat("HH:mm").format(new Date());
-        System.out.println(message);
-        return message;
+    public void handleFriendRequest(@RequestParam FriendRequest friendRequest) {
+
     }
+
 }
