@@ -43,7 +43,6 @@
                 });
             }
 
-
             function sendMessage() {
                 var text = document.getElementById('text').value;
                 stompClient.send("/app/application", {},
@@ -80,14 +79,25 @@
                     JSON.stringify(storedMessage));
                 console.log("accepting?")
             }
+
+            function sendGameRequest() {
+                const category = document.getElementById('category').value;
+                const from = document.getElementById('gameRequestFrom').value;
+                const to = document.getElementById('gameRequestTo').value;
+                stompClient.send("/app/game-request", {},
+                    JSON.stringify({'to':to, 'category':category, 'from':from, 'status': 'PENDING'}));
+            }
+
+            function acceptGameRequest() {
+                storedMessage.status = 'ACCEPTED'
+                stompClient.send("/app/game-response", {},
+                    JSON.stringify(storedMessage));
+                console.log("accepting?")
+            }
         </script>
 </head>
 <body>
 <div>
-<!--    <div>-->
-<!--        <button id="sendMessage" onclick="sendMessage();">Send</button>-->
-<!--        <input type="text" id="text" placeholder="Text"/>-->
-<!--    </div>-->
     <div>
         <button id="registerEndpoints" onclick="registerWs();">Register</button>
         <input type="text" id="username" placeholder="Sender Username"/>
@@ -101,6 +111,18 @@
     </div>
     <div>
         <button id="accept" onClick="acceptRequest();">Accept</button>
+    </div>
+    <br />
+
+
+    <div>
+        <button id="sendGameRequest" onclick="sendGameRequest();">Send Game Request</button>
+        <input type="text" id="category" placeholder="Category"/>
+        <input type="text" id="gameRequestFrom" placeholder="From"/>
+        <input type="text" id="gameRequestTo" placeholder="To"/>
+    </div>
+    <div>
+        <button id="acceptGameRequest" onClick="acceptGameRequest();">Accept</button>
     </div>
     <br />
     <br />
