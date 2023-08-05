@@ -28,10 +28,6 @@ public class UserService {
         userRepository.insert(user1);
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
-    }
-
     public void addNewFriend(String username, String friendUsername) {
         User user = userRepository.findUserByUsername(username);
         user.getFriends().add(friendUsername);
