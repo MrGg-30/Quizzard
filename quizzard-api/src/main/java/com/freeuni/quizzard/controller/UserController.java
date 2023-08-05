@@ -63,9 +63,4 @@ public class UserController {
     public ResponseEntity<Object> handleDuplicateResourceException(UserAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
-
-    public void handleFriendRequest(@RequestParam FriendRequest friendRequest) {
-
-    }
-
 }

@@ -26,14 +26,6 @@ public class FriendRequestController {
 
     private final FriendRequestService friendRequestService;
 
-    @MessageMapping("/application")
-    @SendTo("/all/messages")
-    public FriendRequest send(FriendRequest message) throws Exception {
-        String time = new SimpleDateFormat("HH:mm").format(new Date());
-        System.out.println(message);
-        return message;
-    }
-
     @MessageMapping("/friend-request")
     public FriendRequest friendRequest(@Payload FriendRequest message){
         System.out.println(message);
