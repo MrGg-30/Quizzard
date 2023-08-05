@@ -38,7 +38,7 @@
                     path = '/user/' + sender + '/friend-response'
                     responseStompClient.subscribe(path, function(result) {
                         console.log(result.body)
-                        show(JSON.parse(result.body));
+                        showReceived(JSON.parse(result.body));
                     });
                 });
             }
@@ -63,6 +63,14 @@
                 var response = document.getElementById('messages');
                 var p = document.createElement('p');
                 p.innerHTML= "message: "  + message.text;
+                response.appendChild(p);
+            }
+
+            function showReceived(message) {
+                storedMessage = message
+                var response = document.getElementById('messages');
+                var p = document.createElement('p');
+                p.innerHTML= "received response: "  + message.text;
                 response.appendChild(p);
             }
 
