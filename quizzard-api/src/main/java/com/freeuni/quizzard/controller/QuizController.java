@@ -52,9 +52,15 @@ public class QuizController {
     }
 
     @MessageMapping("/game-request")
-    public FriendRequest sendGameRequest(@Payload GameRequest gameRequest){
+    public void sendGameRequest(@Payload GameRequest gameRequest){
         System.out.println(gameRequest);
         webSocketService.sendGameRequest(gameRequest.getTo(), gameRequest);
-        return null;
+    }
+
+    @MessageMapping("/game-response")
+    public void sendGameResponse(@Payload GameRequest gameRequest) {
+        gameRequest.setStatus(gameRequest.getStatus());
+        System.out.println(gameRequest);
+        webSocketService.sendGameResponse(gameRequest.getFrom(), gameRequest);
     }
 }

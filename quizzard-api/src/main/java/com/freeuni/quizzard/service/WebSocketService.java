@@ -23,4 +23,8 @@ public class WebSocketService {
     public void sendGameRequest(String userId, GameRequest gameRequest) {
         messagingTemplate.convertAndSendToUser(userId,"/game-request", gameRequest);
     }
+
+    public void sendGameResponse(String userId, GameRequest message) {
+        messagingTemplate.convertAndSendToUser(userId,"/game-response",message);
+    }
 }
