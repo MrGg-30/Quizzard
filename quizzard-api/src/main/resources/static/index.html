@@ -41,6 +41,15 @@
                         showReceived(JSON.parse(result.body));
                     });
                 });
+
+                privateStompClient.connect({}, function(frame) {
+                    console.log(frame);
+                    path = '/user/' + sender + '/game-request'
+                    privateStompClient.subscribe(path, function(result) {
+                        console.log(result.body)
+                        showGameRequest(JSON.parse(result.body));
+                    });
+                });
             }
 
             function sendMessage() {
@@ -62,6 +71,14 @@
                 var response = document.getElementById('messages');
                 var p = document.createElement('p');
                 p.innerHTML= "message: "  + message.text;
+                response.appendChild(p);
+            }
+
+            function showGameRequest(message) {
+                storedMessage = message
+                var response = document.getElementById('messages');
+                var p = document.createElement('p');
+                p.innerHTML= "message: "  + message.category;
                 response.appendChild(p);
             }
 

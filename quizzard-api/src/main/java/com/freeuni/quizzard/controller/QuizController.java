@@ -1,12 +1,17 @@
 package com.freeuni.quizzard.controller;
 
 import com.freeuni.quizzard.dto.QuizDto;
+import com.freeuni.quizzard.model.FriendRequest;
+import com.freeuni.quizzard.model.GameRequest;
 import com.freeuni.quizzard.model.QuizRequest;
 import com.freeuni.quizzard.service.QuizService;
+import com.freeuni.quizzard.service.WebSocketService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +27,7 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private final WebSocketService webSocketService;
 
     @GetMapping("/questions")
     public ResponseEntity<QuizDto> getRandomSequenceQuiz(@RequestParam @NonNull String category) {
@@ -43,5 +49,12 @@ public class QuizController {
     public ResponseEntity<List<String>> getCategories() {
         List<String> categories = quizService.getCategories();
         return ResponseEntity.ok(categories);
+    }
+
+    @MessageMapping("/game-request")
+    public FriendRequest sendGameRequest(@Payload GameRequest gameRequest){
+        System.out.println(gameRequest);
+        webSocketService.sendGameRequest(gameRequest.getTo(), gameRequest);
+        return null;
     }
 }
