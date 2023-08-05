@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +28,8 @@ public class QuizService {
 
     private static final int QUIZ_QUESTIONS = 10;
 
-    public QuizDto getRandomSequenceQuiz(String name) {
-        Quiz quiz = quizRepository.findQuizByName(name);
+    public QuizDto getRandomSequenceQuiz(String category) {
+        Quiz quiz = quizRepository.findQuizByCategory(category);
 
         if (Objects.isNull(quiz)) {
             throw new RuntimeException("Quiz Not found");
@@ -49,8 +51,16 @@ public class QuizService {
         return quizMapper.toQuizDto(savedQuiz);
     }
 
+    public List<String> getCategories() {
+        return quizRepository
+                .findAll()
+                .stream()
+                .map(Quiz::getCategory)
+                .collect(Collectors.toList());
+    }
+
     private Quiz fetchQuiz(QuizRequest quizRequest) {
-        Quiz quiz = quizRepository.findQuizByName(quizRequest.getName());
+        Quiz quiz = quizRepository.findQuizByCategory(quizRequest.getCategory());
         if (Objects.isNull(quiz)) {
             quiz = quizMapper.toQuiz(quizRequest);
         }

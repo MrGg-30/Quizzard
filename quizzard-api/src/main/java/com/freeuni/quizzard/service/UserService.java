@@ -8,6 +8,7 @@ import com.freeuni.quizzard.model.UserCreationAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,11 +24,18 @@ public class UserService {
         User user1 = new User();
         user1.setUsername(user.getUsername());
         user1.setEmail(user.getEmail());
+        user1.setFriends(Collections.emptyList());
         userRepository.insert(user1);
     }
 
     public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    public void addNewFriend(String username, String friendUsername) {
+        User user = userRepository.findUserByUsername(username);
+        user.getFriends().add(friendUsername);
+        userRepository.save(user);
     }
 
     public List<UserDto> getUserByUsernamePrefix(String usernamePrefix) {

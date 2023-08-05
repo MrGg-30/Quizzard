@@ -21,7 +21,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+
+                .requestMatchers(HttpMethod.GET, "/**", "/**").permitAll()
+
+                .requestMatchers(HttpMethod.POST, "/**", "/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/create", "/user/create/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/app/*", "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/quiz/**", "/quiz/questions/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/leaderboard/**", "/leaderboard/rating/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/quiz/**", "/quiz/**").permitAll()
