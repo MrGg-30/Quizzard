@@ -41,8 +41,29 @@
                         showReceived(JSON.parse(result.body));
                     });
                 });
-            }
 
+                socket = new SockJS('/ws');
+                responseStompClient = Stomp.over(socket);
+                privateStompClient.connect({}, function(frame) {
+                    console.log(frame);
+                    path = '/user/' + sender + '/game-request'
+                    privateStompClient.subscribe(path, function(result) {
+                        console.log(result.body)
+                        showGameRequest(JSON.parse(result.body));
+                    });
+                });
+
+                socket = new SockJS('/ws');
+                responseStompClient = Stomp.over(socket);
+                responseStompClient.connect({}, function(frame) {
+                    console.log(frame);
+                    path = '/user/' + sender + '/game-response'
+                    responseStompClient.subscribe(path, function(result) {
+                        console.log(result.body)
+                        showReceivedGameResponse(JSON.parse(result.body));
+                    });
+                });
+            }
 
             function sendMessage() {
                 var text = document.getElementById('text').value;
@@ -66,6 +87,22 @@
                 response.appendChild(p);
             }
 
+            function showGameRequest(message) {
+                storedMessage = message
+                var response = document.getElementById('messages');
+                var p = document.createElement('p');
+                p.innerHTML= "message: "  + message.category;
+                response.appendChild(p);
+            }
+
+            function showReceivedGameResponse(message) {
+                storedMessage = message
+                var response = document.getElementById('messages');
+                var p = document.createElement('p');
+                p.innerHTML= "received response: "  + message.category;
+                response.appendChild(p);
+            }
+
             function showReceived(message) {
                 storedMessage = message
                 var response = document.getElementById('messages');
@@ -80,14 +117,25 @@
                     JSON.stringify(storedMessage));
                 console.log("accepting?")
             }
+
+            function sendGameRequest() {
+                const category = document.getElementById('category').value;
+                const from = document.getElementById('gameRequestFrom').value;
+                const to = document.getElementById('gameRequestTo').value;
+                stompClient.send("/app/game-request", {},
+                    JSON.stringify({'to':to, 'category':category, 'from':from, 'status': 'PENDING'}));
+            }
+
+            function acceptGameRequest() {
+                storedMessage.status = 'ACCEPTED'
+                stompClient.send("/app/game-response", {},
+                    JSON.stringify(storedMessage));
+                console.log("accepting?")
+            }
         </script>
 </head>
 <body>
 <div>
-<!--    <div>-->
-<!--        <button id="sendMessage" onclick="sendMessage();">Send</button>-->
-<!--        <input type="text" id="text" placeholder="Text"/>-->
-<!--    </div>-->
     <div>
         <button id="registerEndpoints" onclick="registerWs();">Register</button>
         <input type="text" id="username" placeholder="Sender Username"/>
@@ -101,6 +149,18 @@
     </div>
     <div>
         <button id="accept" onClick="acceptRequest();">Accept</button>
+    </div>
+    <br />
+
+
+    <div>
+        <button id="sendGameRequest" onclick="sendGameRequest();">Send Game Request</button>
+        <input type="text" id="category" placeholder="Category"/>
+        <input type="text" id="gameRequestFrom" placeholder="From"/>
+        <input type="text" id="gameRequestTo" placeholder="To"/>
+    </div>
+    <div>
+        <button id="acceptGameRequest" onClick="acceptGameRequest();">Accept</button>
     </div>
     <br />
     <br />
