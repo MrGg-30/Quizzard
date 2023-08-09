@@ -3,139 +3,144 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript">
-            var stompClient = null;
-            var privateStompClient = null;
-            var responseStompClient = null;
-            var storedMessage = null
+        var stompClient = null;
+        var privateStompClient = null;
+        var responseStompClient = null;
+        var storedMessage = null
 
-            var socket = new SockJS('/ws');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log(frame);
+            stompClient.subscribe('/all/messages', function(result) {
+                show(JSON.parse(result.body));
+            });
+        });
+
+        function registerWs() {
+            var sender = document.getElementById('username').value
+
+            socket = new SockJS('/ws');
+            privateStompClient = Stomp.over(socket);
+            privateStompClient.connect({}, function(frame) {
                 console.log(frame);
-                stompClient.subscribe('/all/messages', function(result) {
+                path = '/user/' + sender + '/friend-request'
+                privateStompClient.subscribe(path, function(result) {
+                    console.log(result.body)
                     show(JSON.parse(result.body));
                 });
             });
 
-            function registerWs() {
-                var sender = document.getElementById('username').value
-
-                socket = new SockJS('/ws');
-                privateStompClient = Stomp.over(socket);
-                privateStompClient.connect({}, function(frame) {
-                    console.log(frame);
-                    path = '/user/' + sender + '/friend-request'
-                    privateStompClient.subscribe(path, function(result) {
-                        console.log(result.body)
-                        show(JSON.parse(result.body));
-                    });
+            socket = new SockJS('/ws');
+            responseStompClient = Stomp.over(socket);
+            responseStompClient.connect({}, function(frame) {
+                console.log(frame);
+                path = '/user/' + sender + '/friend-response'
+                responseStompClient.subscribe(path, function(result) {
+                    console.log(result.body)
+                    showReceived(JSON.parse(result.body));
                 });
+            });
 
-                socket = new SockJS('/ws');
-                responseStompClient = Stomp.over(socket);
-                responseStompClient.connect({}, function(frame) {
-                    console.log(frame);
-                    path = '/user/' + sender + '/friend-response'
-                    responseStompClient.subscribe(path, function(result) {
-                        console.log(result.body)
-                        showReceived(JSON.parse(result.body));
-                    });
+            socket = new SockJS('/ws');
+            gameRequestStompClient = Stomp.over(socket);
+            gameRequestStompClient.connect({}, function(frame) {
+                console.log(frame);
+                path = '/user/' + sender + '/game-request'
+                gameRequestStompClient.subscribe(path, function(result) {
+                    console.log(result.body)
+                    showGameRequest(JSON.parse(result.body));
                 });
+            });
 
-                socket = new SockJS('/ws');
-                responseStompClient = Stomp.over(socket);
-                privateStompClient.connect({}, function(frame) {
-                    console.log(frame);
-                    path = '/user/' + sender + '/game-request'
-                    privateStompClient.subscribe(path, function(result) {
-                        console.log(result.body)
-                        showGameRequest(JSON.parse(result.body));
-                    });
+            socket = new SockJS('/ws');
+            gameResponseStompClient = Stomp.over(socket);
+            gameResponseStompClient.connect({}, function(frame) {
+                console.log(frame);
+                path = '/user/' + sender + '/game-response'
+                gameResponseStompClient.subscribe(path, function(result) {
+                    console.log(result.body)
+                    showReceivedGameResponse(JSON.parse(result.body));
                 });
+            });
+        }
 
-                socket = new SockJS('/ws');
-                responseStompClient = Stomp.over(socket);
-                responseStompClient.connect({}, function(frame) {
-                    console.log(frame);
-                    path = '/user/' + sender + '/game-response'
-                    responseStompClient.subscribe(path, function(result) {
-                        console.log(result.body)
-                        showReceivedGameResponse(JSON.parse(result.body));
-                    });
-                });
-            }
+        function sendMessage() {
+            var text = document.getElementById('text').value;
+            stompClient.send("/app/application", {},
+                JSON.stringify({'text':text}));
+        }
 
-            function sendMessage() {
-                var text = document.getElementById('text').value;
-                stompClient.send("/app/application", {},
-                  JSON.stringify({'text':text}));
-            }
+        function sendPrivateMessage() {
+            var text = document.getElementById('privateText').value;
+            var from = document.getElementById('from').value;
+            var to = document.getElementById('to').value;
+            stompClient.send("/app/friend-request", {},
+                JSON.stringify({'to':to, 'text':text, 'from':from, 'status': 'PENDING'}));
+        }
 
-             function sendPrivateMessage() {
-                var text = document.getElementById('privateText').value;
-                var from = document.getElementById('from').value;
-                var to = document.getElementById('to').value;
-                stompClient.send("/app/friend-request", {},
-                  JSON.stringify({'to':to, 'text':text, 'from':from, 'status': 'PENDING'}));
-            }
+        function show(message) {
+            storedMessage = message
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML= "message: "  + message.text;
+            response.appendChild(p);
+        }
 
-            function show(message) {
-                storedMessage = message
-                var response = document.getElementById('messages');
-                var p = document.createElement('p');
-                p.innerHTML= "message: "  + message.text;
-                response.appendChild(p);
-            }
+        function showGameRequest(message) {
+            storedMessage = message
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML= "message: "  + message.category;
+            response.appendChild(p);
+        }
 
-            function showGameRequest(message) {
-                storedMessage = message
-                var response = document.getElementById('messages');
-                var p = document.createElement('p');
-                p.innerHTML= "message: "  + message.category;
-                response.appendChild(p);
-            }
+        function showReceivedGameResponse(message) {
+            storedMessage = message
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML= "received response: "  + message.category;
+            response.appendChild(p);
+        }
 
-            function showReceivedGameResponse(message) {
-                storedMessage = message
-                var response = document.getElementById('messages');
-                var p = document.createElement('p');
-                p.innerHTML= "received response: "  + message.category;
-                response.appendChild(p);
-            }
+        function showReceived(message) {
+            storedMessage = message
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML= "received response: "  + message.text;
+            response.appendChild(p);
+        }
 
-            function showReceived(message) {
-                storedMessage = message
-                var response = document.getElementById('messages');
-                var p = document.createElement('p');
-                p.innerHTML= "received response: "  + message.text;
-                response.appendChild(p);
-            }
+        function acceptRequest() {
+            storedMessage.status = 'ACCEPTED'
+            stompClient.send("/app/friend-response", {},
+                JSON.stringify(storedMessage));
+            console.log("accepting?")
+        }
 
-            function acceptRequest() {
-                storedMessage.status = 'ACCEPTED'
-                stompClient.send("/app/friend-response", {},
-                    JSON.stringify(storedMessage));
-                console.log("accepting?")
-            }
+        function sendGameRequest() {
+            const category = document.getElementById('category').value;
+            const from = document.getElementById('gameRequestFrom').value;
+            const to = document.getElementById('gameRequestTo').value;
+            stompClient.send("/app/game-request", {},
+                JSON.stringify({'to':to, 'category':category, 'from':from, 'status': 'PENDING'}));
+        }
 
-            function sendGameRequest() {
-                const category = document.getElementById('category').value;
-                const from = document.getElementById('gameRequestFrom').value;
-                const to = document.getElementById('gameRequestTo').value;
-                stompClient.send("/app/game-request", {},
-                    JSON.stringify({'to':to, 'category':category, 'from':from, 'status': 'PENDING'}));
-            }
+        function acceptGameRequest() {
+            storedMessage.status = 'ACCEPTED'
+            stompClient.send("/app/game-response", {},
+                JSON.stringify(storedMessage));
+            console.log("accepting?")
+        }
 
-            function acceptGameRequest() {
-                storedMessage.status = 'ACCEPTED'
-                stompClient.send("/app/game-response", {},
-                    JSON.stringify(storedMessage));
-                console.log("accepting?")
-            }
-        </script>
+    </script>
 </head>
 <body>
 <div>
+    <!--    <div>-->
+    <!--        <button id="sendMessage" onclick="sendMessage();">Send</button>-->
+    <!--        <input type="text" id="text" placeholder="Text"/>-->
+    <!--    </div>-->
     <div>
         <button id="registerEndpoints" onclick="registerWs();">Register</button>
         <input type="text" id="username" placeholder="Sender Username"/>
@@ -151,7 +156,8 @@
         <button id="accept" onClick="acceptRequest();">Accept</button>
     </div>
     <br />
-
+    <br />
+    <br />
 
     <div>
         <button id="sendGameRequest" onclick="sendGameRequest();">Send Game Request</button>
