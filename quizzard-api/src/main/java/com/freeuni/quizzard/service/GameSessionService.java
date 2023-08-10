@@ -19,6 +19,9 @@ public class GameSessionService {
 
     private final QuizService quizService;
 
+    private final WebSocketService webSocketService;
+
+
     public GameSession createGameSession(String currentPlayer, String opponentPlayer, String category) {
         String sessionId = generateSessionId(currentPlayer, opponentPlayer, category);
         // If the key is already present
@@ -49,6 +52,12 @@ public class GameSessionService {
     private String generateSessionId(String username1, String username2, String category) {
         // Logic to generate a unique session ID
         return username1 + "_" + username2 + "_" + category;
+    }
+
+    public void sendQuestion(String sessionId) {
+        GameSession activeGameSession = activeGameSessions.get(sessionId);
+        QuestionDto currentQuestion = activeGameSession.getCurrentQuestion();
+        webSocketService.sendQuestion(sessionId, currentQuestion);
     }
 }
 

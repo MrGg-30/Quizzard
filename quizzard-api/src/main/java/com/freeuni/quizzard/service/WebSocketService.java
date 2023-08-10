@@ -1,5 +1,6 @@
 package com.freeuni.quizzard.service;
 
+import com.freeuni.quizzard.dto.QuestionDto;
 import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.model.GameRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class WebSocketService {
 
     public void sendSessionId(String userId, GameRequest message) {
         messagingTemplate.convertAndSendToUser(userId, "/session-id", message);
+    }
+
+    public void sendQuestion(String sessionId, QuestionDto questionDto) {
+        messagingTemplate.convertAndSendToUser(sessionId, "/question", questionDto);
     }
 }

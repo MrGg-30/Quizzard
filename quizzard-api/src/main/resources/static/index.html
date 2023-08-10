@@ -73,6 +73,22 @@
                 gameResponseStompClient.subscribe(path, function(result) {
                     console.log(result.body)
                     showReceivedSessionId(JSON.parse(result.body));
+                    connectToQuestionSocket(JSON.parse(result.body).sessionId)
+                    stompClient.send("/app/question/" + JSON.parse(result.body).sessionId, {});
+                });
+            });
+
+        }
+
+        function connectToQuestionSocket(sessionId) {
+            var socket = new SockJS('/ws');
+            var questionClient = Stomp.over(socket);
+
+            questionClient.connect({}, function(frame) {
+                console.log(frame);
+                var path = '/question/' + sessionId;
+                questionClient.subscribe(path, function(result) {
+                    console.log(result.body);
                 });
             });
         }

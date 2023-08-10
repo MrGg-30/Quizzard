@@ -38,6 +38,12 @@ public class GameController {
         }
     }
 
+    @MessageMapping("/question/{sessionId}")
+    public void sendQuestion(@DestinationVariable String sessionId) {
+        gameSessionService.sendQuestion(sessionId);
+    }
+}
+
 
 //    @MessageMapping("/submitAnswer/{sessionId}")
 //    public void submitAnswer(@DestinationVariable String sessionId, SubmittedAnswer submittedAnswer) {
@@ -68,4 +74,4 @@ public class GameController {
 //            }
 //        }
 //    }
-}
+// }
