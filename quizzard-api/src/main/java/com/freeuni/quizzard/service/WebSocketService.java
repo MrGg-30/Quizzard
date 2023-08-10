@@ -13,11 +13,11 @@ public class WebSocketService {
     private SimpMessagingTemplate messagingTemplate;
 
     public void sendFriendRequest(String userId, FriendRequest message) {
-        messagingTemplate.convertAndSendToUser(userId,"/friend-request",message);
+        messagingTemplate.convertAndSendToUser(userId,"/friend-request", message);
     }
 
     public void sendFriendResponse(String userId, FriendRequest message) {
-        messagingTemplate.convertAndSendToUser(userId,"/friend-response",message);
+        messagingTemplate.convertAndSendToUser(userId,"/friend-response", message);
     }
 
     public void sendGameRequest(String userId, GameRequest gameRequest) {
@@ -25,6 +25,10 @@ public class WebSocketService {
     }
 
     public void sendGameResponse(String userId, GameRequest message) {
-        messagingTemplate.convertAndSendToUser(userId,"/game-response",message);
+        messagingTemplate.convertAndSendToUser(userId,"/game-response", message);
+    }
+
+    public void sendSessionId(String userId, GameRequest message) {
+        messagingTemplate.convertAndSendToUser(userId, "/session-id", message);
     }
 }

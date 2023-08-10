@@ -1,26 +1,36 @@
 package com.freeuni.quizzard.service;
 
-import com.freeuni.quizzard.data.mongo.model.Question;
 import com.freeuni.quizzard.dto.QuestionDto;
+import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.GameSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@RequiredArgsConstructor
 public class GameSessionService {
 
     private final Map<String, GameSession> activeGameSessions = new ConcurrentHashMap<>();
 
-    public GameSession createGameSession(String currentPlayer, String opponentPlayer, String category, List<QuestionDto> questions) {
+    private final QuizService quizService;
+
+    public GameSession createGameSession(String currentPlayer, String opponentPlayer, String category) {
         String sessionId = generateSessionId(currentPlayer, opponentPlayer, category);
         // If the key is already present
         if (activeGameSessions.containsKey(sessionId)) {
             return activeGameSessions.get(sessionId);
         }
 
+        QuizDto quizDto = quizService.getRandomSequenceQuiz(category);
+        if (quizDto == null) {
+            throw new NotFoundException("Quiz By This Category not found");
+        }
+        List<QuestionDto> questions = quizDto.getQuestions();
         GameSession gameSession = new GameSession(sessionId, currentPlayer, opponentPlayer, questions);
         activeGameSessions.put(sessionId, gameSession);
         return gameSession;

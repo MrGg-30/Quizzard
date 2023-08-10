@@ -7,6 +7,7 @@
         var privateStompClient = null;
         var responseStompClient = null;
         var storedMessage = null
+        var sessionId = null
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -63,6 +64,17 @@
                     showReceivedGameResponse(JSON.parse(result.body));
                 });
             });
+
+            socket = new SockJS('/ws');
+            sessionStompClient = Stomp.over(socket);
+            sessionStompClient.connect({}, function(frame) {
+                console.log(frame);
+                path = '/user/' + sender + '/session-id'
+                gameResponseStompClient.subscribe(path, function(result) {
+                    console.log(result.body)
+                    showReceivedSessionId(JSON.parse(result.body));
+                });
+            });
         }
 
         function sendMessage() {
@@ -97,9 +109,18 @@
 
         function showReceivedGameResponse(message) {
             storedMessage = message
+            sessionId = message.sessionId
             var response = document.getElementById('messages');
             var p = document.createElement('p');
-            p.innerHTML= "received response: "  + message.category;
+            p.innerHTML= "received sessionId: "  + sessionId;
+            response.appendChild(p);
+        }
+
+        function showReceivedSessionId(message) {
+            sessionId = message.sessionId
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML= "received sessionId From Initial sender: "  + sessionId;
             response.appendChild(p);
         }
 

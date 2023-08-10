@@ -9,4 +9,5 @@ public class GameRequest {
     private String to;
     private String from;
     private RequestStatus status;
+    private String sessionId;
 }
