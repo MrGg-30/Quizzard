@@ -9,13 +9,8 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class QuizDto {
-    private String id;
-
-    private String name;
 
     private String category;
-
-    private String creatorId;
 
     private String description;
 

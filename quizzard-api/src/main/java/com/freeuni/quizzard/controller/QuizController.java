@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,8 @@ public class QuizController {
     private final QuizService quizService;
     private final WebSocketService webSocketService;
 
-    @GetMapping("/questions")
-    public ResponseEntity<QuizDto> getRandomSequenceQuiz(@RequestParam @NonNull String category) {
+    @GetMapping("/questions/{category}")
+    public ResponseEntity<QuizDto> getRandomSequenceQuiz(@PathVariable @NonNull String category) {
         QuizDto quizDto = quizService.getRandomSequenceQuiz(category);
 
         return ResponseEntity.status(HttpStatus.OK).
@@ -48,6 +49,12 @@ public class QuizController {
     @GetMapping("/categories")
     public ResponseEntity<List<String>> getCategories() {
         List<String> categories = quizService.getCategories();
+        return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/categories/{category}")
+    public ResponseEntity<List<String>> getCategoriesByPrefix(@PathVariable String category) {
+        List<String> categories = quizService.getCategoriesByPrefix(category);
         return ResponseEntity.ok(categories);
     }
 

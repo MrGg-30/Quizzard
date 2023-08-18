@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +29,7 @@ public class UserService {
     private final KeycloakService keycloakService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
     private final S3Client amazonS3;
-
     private final String bucketName = "quizzard-pictures";
 
     public void createUser(UserCreationAttributes userAttributes) {
@@ -41,6 +40,7 @@ public class UserService {
         newUser.setName(userAttributes.getName());
         newUser.setLastName(userAttributes.getLastName());
         newUser.setFriends(Collections.emptyList());
+        newUser.setProfilePictureUrl(defaultPictureUrl());
         userRepository.save(newUser);
     }
 
@@ -82,6 +82,10 @@ public class UserService {
 
     public byte[] getProfilePictureByName(String username) {
         User user = userRepository.findUserByUsername(username);
+        if (user == null) {
+            // User not found
+            return null;
+        }
         String url = user.getProfilePictureUrl();
         if (url == null) {
             // TODO default photo
@@ -96,5 +100,11 @@ public class UserService {
 
         ResponseBytes<GetObjectResponse> objectBytes = amazonS3.getObjectAsBytes(objectRequest);
         return objectBytes.asByteArray();
+    }
+
+    private String defaultPictureUrl() {
+        Random rn = new Random();
+        int color = rn.nextInt(4) + 1;
+        return "default" + color + ".png";
     }
 }
