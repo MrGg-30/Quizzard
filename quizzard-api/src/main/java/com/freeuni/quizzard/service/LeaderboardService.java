@@ -21,6 +21,8 @@ public class LeaderboardService {
 
     private final LeaderboardMapper leaderboardMapper;
 
+    private final UserService userService;
+
     private static final int LEADERBOARD_MAX_SIZE = 10;
 
     public List<LeaderboardDto> getLeaderboardByQuiz(String category) {
@@ -34,15 +36,25 @@ public class LeaderboardService {
 
     public void submitScores(QuizResult result) {
         String category = result.getCategory();
+        String winnerUsername = null;
+        int winnerScore = 0;
+
         for (Map.Entry<String, Integer> entry : result.getPlayerScores().entrySet()) {
             String username = entry.getKey();
             Integer score = entry.getValue();
+            if (score > winnerScore) {
+                winnerScore = score;
+                winnerUsername = username;
+            }
             Leaderboard leaderboard = leaderboardRepository.findLeaderboardByQuizCategoryAndUsername(category, username);
             if (leaderboard == null) {
                 leaderboardRepository.save(new Leaderboard().setScore(score).setUsername(username).setQuizCategory(category));
             } else {
                 leaderboardRepository.save(leaderboard.setScore(leaderboard.getScore() + score));
             }
+
+            userService.addScore(username, score);
         }
+        userService.addWinningCount(winnerUsername);
     }
 }

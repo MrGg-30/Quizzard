@@ -40,6 +40,9 @@ public class UserService {
         newUser.setName(userAttributes.getName());
         newUser.setLastName(userAttributes.getLastName());
         newUser.setFriends(Collections.emptyList());
+        newUser.setQuizCount(0);
+        newUser.setWonQuizCount(0);
+        newUser.setTotalPoints(0);
         newUser.setProfilePictureUrl(defaultPictureUrl());
         userRepository.save(newUser);
     }
@@ -57,6 +60,27 @@ public class UserService {
     public List<UserDto> getUserByUsernamePrefix(String usernamePrefix) {
         List<User> users = userRepository.findUsersByUsernamePrefix(usernamePrefix);
         return userMapper.toDtoList(users);
+    }
+
+    public void addScore(String username, int score) {
+        User user = userRepository.findUserByUsername(username);
+        if (user == null) {
+            // NOT FOUND USER
+            return;
+        }
+        user.setTotalPoints(user.getTotalPoints() + score);
+        user.setQuizCount(user.getQuizCount() + 1);
+        userRepository.save(user);
+    }
+
+    public void addWinningCount(String username) {
+        User user = userRepository.findUserByUsername(username);
+        if (user == null) {
+            // NOT FOUND USER
+            return;
+        }
+        user.setWonQuizCount(user.getWonQuizCount() + 1);
+        userRepository.save(user);
     }
 
     @Transactional

@@ -18,4 +18,10 @@ public class UserDto {
     private List<String> friends;
 
     private String profilePictureUrl;
+
+    private Integer quizCount;
+
+    private Integer wonQuizCount;
+
+    private Integer totalPoints;
 }

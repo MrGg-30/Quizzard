@@ -26,5 +26,11 @@ public class User {
     private String profilePictureUrl;
 
     private List<String> friends;
+
+    private Integer quizCount;
+
+    private Integer wonQuizCount;
+
+    private Integer totalPoints;
 }
 
