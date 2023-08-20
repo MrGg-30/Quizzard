@@ -1,6 +1,5 @@
 package com.freeuni.quizzard.dto;
 
-import com.freeuni.quizzard.data.mongo.model.Question;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

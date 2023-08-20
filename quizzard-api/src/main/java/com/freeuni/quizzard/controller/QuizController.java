@@ -1,9 +1,10 @@
 package com.freeuni.quizzard.controller;
 
 import com.freeuni.quizzard.dto.QuizDto;
-import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.model.GameRequest;
 import com.freeuni.quizzard.model.QuizRequest;
+import com.freeuni.quizzard.model.QuizResult;
+import com.freeuni.quizzard.service.LeaderboardService;
 import com.freeuni.quizzard.service.QuizService;
 import com.freeuni.quizzard.service.WebSocketService;
 import lombok.NonNull;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,6 +28,9 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+
+    private final LeaderboardService leaderboardService;
+
     private final WebSocketService webSocketService;
 
     @GetMapping("/questions/{category}")
@@ -44,6 +47,11 @@ public class QuizController {
 
         return ResponseEntity.status(HttpStatus.CREATED).
                 body(quizDto);
+    }
+
+    @PostMapping("/result")
+    public void submitResult(@RequestBody QuizResult quizResult) {
+        leaderboardService.submitScores(quizResult);
     }
 
     @GetMapping("/categories")
