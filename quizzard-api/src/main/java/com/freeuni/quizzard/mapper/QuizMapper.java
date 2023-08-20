@@ -1,7 +1,9 @@
 package com.freeuni.quizzard.mapper;
 
 
+import com.freeuni.quizzard.data.mongo.model.Question;
 import com.freeuni.quizzard.data.mongo.model.Quiz;
+import com.freeuni.quizzard.dto.QuestionDto;
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.QuizRequest;
 import org.mapstruct.Mapper;
@@ -14,4 +16,6 @@ public interface QuizMapper {
     Quiz toQuiz(QuizRequest quizRequest);
 
     QuizDto toQuizDto(Quiz quiz);
+
+    QuestionDto toQuestionDto(Question question);
 }

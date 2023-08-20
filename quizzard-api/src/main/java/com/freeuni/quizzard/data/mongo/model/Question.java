@@ -17,4 +17,6 @@ public class Question {
     private List<String> possibleAnswers;
 
     private String correctAnswer;
+
+    private String questionPictureUrl;
 }

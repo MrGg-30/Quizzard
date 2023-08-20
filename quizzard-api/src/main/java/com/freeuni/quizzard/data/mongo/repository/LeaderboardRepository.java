@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface LeaderboardRepository extends MongoRepository<Leaderboard, String> {
 
-    List<Leaderboard> findLeaderboardByQuizId(String quizId);
+    List<Leaderboard> findLeaderboardByQuizCategory(String category);
+
+    Leaderboard findLeaderboardByQuizCategoryAndUsername(String category, String username);
 }

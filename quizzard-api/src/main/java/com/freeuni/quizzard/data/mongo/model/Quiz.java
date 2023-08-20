@@ -16,11 +16,7 @@ public class Quiz {
     @Id
     private String id;
 
-    private String name;
-
     private String category;
-
-    private String creatorId;
 
     private String description;
 

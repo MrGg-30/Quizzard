@@ -30,3 +30,9 @@ jwt:
     converter:
       resource-id: quizzard-app
       principal-attribute: preferred_username
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAQADSZ5DU5BK45YZD
+      secret-key: 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

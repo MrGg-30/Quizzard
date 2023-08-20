@@ -15,7 +15,7 @@ public class Leaderboard {
 
     private String username;
 
-    private String quizId;
+    private String quizCategory;
 
-    private Double score;
+    private Integer score;
 }

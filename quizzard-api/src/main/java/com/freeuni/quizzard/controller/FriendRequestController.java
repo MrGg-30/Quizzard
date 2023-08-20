@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,8 +44,8 @@ public class FriendRequestController {
     }
 
 
-    @GetMapping("/pendingRequests")
-    public ResponseEntity<List<FriendRequest>> getReceivedPendingRequests(@RequestParam String username) {
+    @GetMapping("/pendingRequests/{username}")
+    public ResponseEntity<List<FriendRequest>> getReceivedPendingRequests(@PathVariable String username) {
         List<FriendRequest> requests = friendRequestService.getReceivedRequests(username);
         return ResponseEntity.ok(requests);
     }
