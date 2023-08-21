@@ -13,19 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/quiz")
-public class QuizController {
+public class QuizController implements QuizApi{
 
     private final QuizService quizService;
 
@@ -33,7 +29,6 @@ public class QuizController {
 
     private final WebSocketService webSocketService;
 
-    @GetMapping("/questions/{category}")
     public ResponseEntity<QuizDto> getRandomSequenceQuiz(@PathVariable @NonNull String category) {
         QuizDto quizDto = quizService.getRandomSequenceQuiz(category);
 
@@ -41,7 +36,6 @@ public class QuizController {
                 body(quizDto);
     }
 
-    @PostMapping()
     public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizRequest quizRequest) {
         QuizDto quizDto = quizService.createQuiz(quizRequest);
 
@@ -49,18 +43,15 @@ public class QuizController {
                 body(quizDto);
     }
 
-    @PostMapping("/result")
     public void submitResult(@RequestBody QuizResult quizResult) {
         leaderboardService.submitScores(quizResult);
     }
 
-    @GetMapping("/categories")
     public ResponseEntity<List<String>> getCategories() {
         List<String> categories = quizService.getCategories();
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/categories/{category}")
     public ResponseEntity<List<String>> getCategoriesByPrefix(@PathVariable String category) {
         List<String> categories = quizService.getCategoriesByPrefix(category);
         return ResponseEntity.ok(categories);

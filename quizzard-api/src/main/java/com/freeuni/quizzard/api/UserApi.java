@@ -34,6 +34,7 @@ public interface UserApi {
     ResponseEntity<String> addUser(UserCreationAttributes user);
 
     @Operation(summary = "Upload user picture")
+    @ApiResponse(responseCode = "201", description = "Picture was updated successfully")
     @PostMapping("/picture")
     String uploadUser(MultipartFile file, String username);
 
