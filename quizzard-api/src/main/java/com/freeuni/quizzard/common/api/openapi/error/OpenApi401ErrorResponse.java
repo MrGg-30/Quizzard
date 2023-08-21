@@ -1,6 +1,6 @@
-package com.freeuni.quizzard.api.api.openapi.error;
+package com.freeuni.quizzard.common.api.openapi.error;
 
-import com.tvh.commerce.ct.feature.common.error.api.model.response.ApiErrorResponse;
+import com.freeuni.quizzard.common.api.model.response.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;

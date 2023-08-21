@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.api.api.openapi.error;
+package com.freeuni.quizzard.common.api.openapi.error;
 
 import lombok.NoArgsConstructor;
 
@@ -96,6 +96,19 @@ public final class OpenApiErrorResponseExamples {
                    "title": "Request validation failed",
                    "status": 400,
                    "detail": "The user has no permissions to view the requested source"
+                 }
+               ]
+             }
+            """;
+    public static final String NOT_FOUND_EXAMPLE =
+            """
+            {
+               "errors": [
+                 {
+                   "type": "/resource-not-found",
+                   "title": "Resource not found",
+                   "status": 404,
+                   "detail": "Specified resource was not found"
                  }
                ]
              }

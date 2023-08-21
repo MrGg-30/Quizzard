@@ -1,6 +1,6 @@
-package com.freeuni.quizzard.api.api.openapi.error;
+package com.freeuni.quizzard.common.api.openapi.error;
 
-import com.freeuni.quizzard.api.api.model.response.ApiErrorResponse;
+import com.freeuni.quizzard.common.api.model.response.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,9 +12,6 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import static com.freeuni.quizzard.api.api.openapi.error.OpenApiErrorResponseExamples.CONSTRAINT_VALIDATION_ERROR_EXAMPLE;
-import static com.freeuni.quizzard.api.api.openapi.error.OpenApiErrorResponseExamples.INVALID_REQUEST_ERROR_EXAMPLE;
 
 @Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -28,11 +25,11 @@ import static com.freeuni.quizzard.api.api.openapi.error.OpenApiErrorResponseExa
                 examples = {
                         @ExampleObject(
                                 name = "invalid-request",
-                                value = INVALID_REQUEST_ERROR_EXAMPLE
+                                value = OpenApiErrorResponseExamples.INVALID_REQUEST_ERROR_EXAMPLE
                         ),
                         @ExampleObject(
                                 name = "constraint-violation",
-                                value = CONSTRAINT_VALIDATION_ERROR_EXAMPLE
+                                value = OpenApiErrorResponseExamples.CONSTRAINT_VALIDATION_ERROR_EXAMPLE
                         ),
                         @ExampleObject(
                                 name = "not-unique-some-property",

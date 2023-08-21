@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.api.api.model.response;
+package com.freeuni.quizzard.common.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
