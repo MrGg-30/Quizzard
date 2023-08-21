@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.controller;
+package com.freeuni.quizzard.api;
 
 import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.service.FriendRequestService;

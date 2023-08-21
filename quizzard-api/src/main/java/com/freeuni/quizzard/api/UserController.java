@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.controller;
+package com.freeuni.quizzard.api;
 
 import com.freeuni.quizzard.dto.UserDto;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
