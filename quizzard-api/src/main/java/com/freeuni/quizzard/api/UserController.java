@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.controller;
+package com.freeuni.quizzard.api;
 
 import com.freeuni.quizzard.dto.UserDto;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
@@ -34,44 +34,36 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserService userService;
 
-    @PostMapping("/create")
     public ResponseEntity<String> addUser(@RequestBody UserCreationAttributes user) {
         userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).
                 body("User was created successfully");
     }
 
-    @PostMapping("/picture")
     public String uploadUser(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
         return userService.upload(file, username);
     }
 
-    @GetMapping("/picture/{username}")
     public ResponseEntity<byte[]> getPicture(@PathVariable String username) {
         return ResponseEntity.ok(userService.getProfilePictureByName(username));
     }
 
-    // secured endpoint
-    @GetMapping("/email")
     public String getEmail(Principal principal) {
         JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
         String email = (String) token.getTokenAttributes().get("email");
         return email;
     }
 
-    @GetMapping("/username")
     public String getUsername(Principal principal) {
         JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
         String username = (String) token.getTokenAttributes().get("preferred_username");
         return username;
     }
 
-    @GetMapping("/profile/{username}")
     public ResponseEntity<UserDto> getUser(@PathVariable String username) {
         UserDto userDto = userService.getUser(username);
         if (userDto == null) {
@@ -81,7 +73,6 @@ public class UserController {
         }
     }
 
-    @GetMapping
     public ResponseEntity<List<UserDto>> getUsers(@RequestParam String usernamePrefix) {
         List<UserDto> users = userService.getUserByUsernamePrefix(usernamePrefix);
 

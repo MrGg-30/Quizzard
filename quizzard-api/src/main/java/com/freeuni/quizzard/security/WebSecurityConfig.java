@@ -21,8 +21,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+                .requestMatchers("/swagger-ui/**",
+                        "/swagger-resources/*",
+                        "/v3/api-docs/**")
+                .permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/**", "/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/**", "/**").permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/**", "/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/create", "/user/create/**").permitAll()

@@ -1,4 +1,4 @@
-package com.freeuni.quizzard.controller;
+package com.freeuni.quizzard.api;
 
 import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.service.FriendRequestService;
@@ -7,25 +7,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping
-public class FriendRequestController {
+public class FriendRequestController implements FriendRequestApi{
 
     private final WebSocketService webSocketService;
 
     private final FriendRequestService friendRequestService;
+
+    public ResponseEntity<List<FriendRequest>> getReceivedPendingRequests(@PathVariable String username) {
+        List<FriendRequest> requests = friendRequestService.getReceivedRequests(username);
+        return ResponseEntity.ok(requests);
+    }
 
     @MessageMapping("/friend-request")
     public FriendRequest friendRequest(@Payload FriendRequest message){
@@ -41,12 +41,5 @@ public class FriendRequestController {
         System.out.println(message);
         webSocketService.sendFriendResponse(message.getFrom(), message);
         friendRequestService.friendResponse(message);
-    }
-
-
-    @GetMapping("/pendingRequests/{username}")
-    public ResponseEntity<List<FriendRequest>> getReceivedPendingRequests(@PathVariable String username) {
-        List<FriendRequest> requests = friendRequestService.getReceivedRequests(username);
-        return ResponseEntity.ok(requests);
     }
 }
