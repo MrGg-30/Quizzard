@@ -33,7 +33,6 @@ public class UserService {
     private final String bucketName = "quizzard-pictures";
 
     public void createUser(UserCreationAttributes userAttributes) {
-        keycloakService.createNewUser(userAttributes.getUsername(), userAttributes.getEmail(), userAttributes.getPassword());
         User newUser = new User();
         newUser.setUsername(userAttributes.getUsername());
         newUser.setEmail(userAttributes.getEmail());
