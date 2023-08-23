@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15.2
+    container_name: quizzard-db
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: "pg_isready -U keycloak"
+    networks:
+      network:
+        ipv4_address: 172.28.0.2
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1
+    container_name: quizzard-keycloak
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_SSL_REQUIRED: external
+    ports:
+      - "8090:8080"
+    command: start-dev
+    depends_on:
+      - postgres
+    networks:
+      network:
+        ipv4_address: 172.28.0.3
+
+  quizzard:
+    build:
+      context: .
+      dockerfile: Dockerfile-Quizzard
+    environment:
+      keycloak.serverUrl: "http://172.28.0.3:8080"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - keycloak
+    networks:
+      network:
+        ipv4_address: 172.28.0.5
+    restart: on-failure
+
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1

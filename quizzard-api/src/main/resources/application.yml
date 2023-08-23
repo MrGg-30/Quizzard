@@ -6,6 +6,16 @@ quizzard:
   userRole: USER
   adminRole: ADMIN
 
+keycloak:
+  serverUrl: http://localhost:8090
+  realm: master
+  username: admin
+  password: admin
+  clientId: admin-cli
+
+server:
+  port: 8081
+
 spring:
   application:
     name: quizzard
