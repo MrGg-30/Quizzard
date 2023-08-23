@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
-import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -26,7 +25,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final KeycloakService keycloakService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final S3Client amazonS3;

@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/user", "/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/user/email","/user/email/**").hasAnyRole(ADMIN,USER)
                  // TODO add endpoints to secure based on roles
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and().logout().permitAll();
         http.oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthConverter);
