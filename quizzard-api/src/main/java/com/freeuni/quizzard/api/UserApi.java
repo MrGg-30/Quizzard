@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,16 @@ public interface UserApi {
     @OpenApi404CartErrorResponse
     @GetMapping("/profile/{username}")
     ResponseEntity<UserDto> getUser(String username);
+
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User profile retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = UserDto.class))),
+            @ApiResponse(responseCode = "204", description = "User Not found")
+    })
+    @OpenApi404CartErrorResponse
+    @GetMapping("/fetch-user")
+    ResponseEntity<UserDto> getUserByToken(Principal principal);
 
     @Operation(summary = "Get users by username prefix")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully",
