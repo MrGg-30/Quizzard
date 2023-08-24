@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,8 @@ public interface LeaderboardApi {
 
     String LEADERBOARD_URL = "/leaderboard";
 
-    @Operation(summary = "Get sorted leaderboard by category")
+    @Operation(summary = "Get sorted leaderboard by category",
+            security = {@SecurityRequirement(name = "bearer-key")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Leaderboard retrieved successfully",
                          content = @Content(schema = @Schema(implementation = List.class))),

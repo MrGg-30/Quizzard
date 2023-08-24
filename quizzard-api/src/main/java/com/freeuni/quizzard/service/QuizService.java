@@ -59,11 +59,11 @@ public class QuizService {
         return dto;
     }
 
-    public QuizDto createQuiz(QuizRequest quizRequest) {
+    public QuizDto createQuiz(QuizRequest quizRequest, MultipartFile questionPicture) {
         Quiz quiz = fetchQuiz(quizRequest);
         String key = null;
-        if (quizRequest.getQuestionPicture() != null) {
-            key = uploadPicture(quizRequest);
+        if (questionPicture != null) {
+            key = uploadPicture(quizRequest, questionPicture);
         }
         Question question = questionMapper.toQuestion(quizRequest);
         if (key != null) {
@@ -105,9 +105,9 @@ public class QuizService {
         quiz.getQuestions().add(question);
     }
 
-    public String uploadPicture(QuizRequest request) {
+    public String uploadPicture(QuizRequest request, MultipartFile questionPicture) {
         try {
-            MultipartFile file = request.getQuestionPicture();
+            MultipartFile file = questionPicture;
             ByteBuffer byteBuffer = ByteBuffer.wrap(file.getBytes());
 
             Random rn = new Random();

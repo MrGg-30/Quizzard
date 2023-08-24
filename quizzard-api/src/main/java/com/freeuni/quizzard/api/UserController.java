@@ -3,8 +3,11 @@ package com.freeuni.quizzard.api;
 import com.freeuni.quizzard.dto.UserDto;
 import com.freeuni.quizzard.exception.UserAlreadyExistsException;
 import com.freeuni.quizzard.model.UserCreationAttributes;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import com.freeuni.quizzard.service.UserService;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -30,7 +33,7 @@ public class UserController implements UserApi {
                 body("User was created successfully");
     }
 
-    public String uploadUser(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
+    public String uploadUserPicture(@Parameter(description = "Upload a png/jpg file", content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
         return userService.upload(file, username);
     }
 
@@ -72,7 +75,7 @@ public class UserController implements UserApi {
     }
 
 
-    public ResponseEntity<List<UserDto>> getUsers(@RequestParam String usernamePrefix) {
+    public ResponseEntity<List<UserDto>> getUsers(@PathVariable String usernamePrefix) {
         List<UserDto> users = userService.getUserByUsernamePrefix(usernamePrefix);
 
         return ResponseEntity.status(HttpStatus.OK).
