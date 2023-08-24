@@ -16,5 +16,4 @@ public class QuizRequest {
 
     private List<String> possibleAnswers;
 
-    private MultipartFile questionPicture;
 }

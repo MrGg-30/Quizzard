@@ -11,7 +11,7 @@ public class LeaderboardDto {
 
     private String username;
 
-    private String quizId;
+    private String quizCategory;
 
     private Double score;
 }

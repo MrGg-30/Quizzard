@@ -1,0 +1,1320 @@
+openapi: 3.0.1
+info:
+  title: quizzard
+  version: 1.0.11
+servers:
+  - url: http://localhost:8081
+    description: Generated server url
+paths:
+  /user/picture:
+    post:
+      tags:
+        - user-controller
+      summary: Upload user picture
+      operationId: uploadUserPicture
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: Upload a png/jpg file
+                  format: binary
+      responses:
+        '201':
+          description: Picture was updated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/create:
+    post:
+      tags:
+        - user-controller
+      summary: Add a new user
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreationAttributes'
+        required: true
+      responses:
+        '201':
+          description: User was created successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /quiz:
+    post:
+      tags:
+        - quiz-controller
+      summary: Create a new quiz
+      operationId: createQuiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizRequest'
+        required: true
+      responses:
+        '201':
+          description: Quiz created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuizDto'
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /quiz/result:
+    post:
+      tags:
+        - quiz-controller
+      summary: Submit quiz result
+      operationId: submitResult
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizResult'
+        required: true
+      responses:
+        '201':
+          description: Quiz result submitted successfully
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/{usernamePrefix}:
+    get:
+      tags:
+        - user-controller
+      summary: Get users by username prefix
+      operationId: getUsers
+      parameters:
+        - name: usernamePrefix
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Users retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/username:
+    get:
+      tags:
+        - user-controller
+      summary: Get user username
+      description: This is a secured endpoint.
+      operationId: getUsername
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/profile/{username}:
+    get:
+      tags:
+        - user-controller
+      summary: Get user profile by username
+      operationId: getUser
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '404':
+          description: The requested resource/entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                resource-not-found:
+                  description: resource-not-found
+                  value:
+                    errors:
+                      - type: /resource-not-found
+                        title: Resource not found
+                        status: 404
+                        detail: Specified resource was not found
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/picture/{username}:
+    get:
+      tags:
+        - user-controller
+      summary: Get user picture by username
+      operationId: getPicture
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/fetch-user:
+    get:
+      tags:
+        - user-controller
+      operationId: getUserByToken
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '204':
+          description: User Not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '404':
+          description: The requested resource/entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                resource-not-found:
+                  description: resource-not-found
+                  value:
+                    errors:
+                      - type: /resource-not-found
+                        title: Resource not found
+                        status: 404
+                        detail: Specified resource was not found
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /user/email:
+    get:
+      tags:
+        - user-controller
+      summary: Get user email
+      description: This is a secured endpoint.
+      operationId: getEmail
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /quiz/questions/{category}:
+    get:
+      tags:
+        - quiz-controller
+      summary: Get random sequence quiz by category
+      operationId: getRandomSequenceQuiz
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Quiz retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuizDto'
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '404':
+          description: Quiz not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/QuizDto'
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /quiz/categories:
+    get:
+      tags:
+        - quiz-controller
+      summary: Get all categories
+      operationId: getCategories
+      responses:
+        '200':
+          description: Categories retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /quiz/categories/{category}:
+    get:
+      tags:
+        - quiz-controller
+      summary: Get categories by prefix
+      operationId: getCategoriesByPrefix
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Categories retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /pendingRequests/{username}:
+    get:
+      tags:
+        - friend-request-controller
+      summary: Get received pending friend requests
+      operationId: getReceivedPendingRequests
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Received pending friend requests retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+  /leaderboard/rating/{category}:
+    get:
+      tags:
+        - leaderboard-controller
+      summary: Get sorted leaderboard by category
+      operationId: getSortedLeaderboard
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Leaderboard retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: The unauthorized request was sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                unauthorized:
+                  description: unauthorized
+                  value:
+                    errors:
+                      - type: /unauthorized
+                        title: Unauthorized
+                        status: 401
+                        detail: The request lacks valid authentication credentials for the requested resource
+        '403':
+          description: Current user is not authorised for requested action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                access-forbidden:
+                  description: access-forbidden
+                  value:
+                    errors:
+                      - type: /access-forbidden
+                        title: Access forbidden
+                        status: 403
+                        detail: The user has no permissions to view the requested resource
+        '404':
+          description: Leaderboard not found
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderboardDto'
+        '500':
+          description: Unhandled exception occurred during request processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+              examples:
+                internal-server-error:
+                  description: internal-server-error
+                  value:
+                    errors:
+                      - type: /internal-server-error
+                        title: Unexpected internal server error
+                        status: 500
+                        detail: Unexpected internal server error occurred. Please contact service administrator for more details.
+                external-server-error:
+                  description: external-server-error
+                  value:
+                    errors:
+                      - type: /external-server-error
+                        title: Unexpected external error
+                        status: 500
+                        detail: Unexpected external server error occurred. Please contact service administrator for more details.
+                        source: CommerceTools
+      security:
+        - bearer-key: []
+components:
+  schemas:
+    ApiErrorResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        errors:
+          required:
+            - type
+          type: array
+          description: The array of occurred errors during request execution
+          items:
+            $ref: '#/components/schemas/Problem'
+      description: The wrapper of array of occurred errors during request execution
+    Problem:
+      required:
+        - type
+      type: object
+      properties:
+        instance:
+          type: string
+          format: uri
+        type:
+          type: string
+          format: uri
+        parameters:
+          type: object
+          additionalProperties:
+            type: object
+        status:
+          $ref: '#/components/schemas/StatusType'
+        detail:
+          type: string
+        title:
+          type: string
+      description: The array of occurred errors during request execution
+    StatusType:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        reasonPhrase:
+          type: string
+    UserCreationAttributes:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+    QuizRequest:
+      type: object
+      properties:
+        category:
+          type: string
+        questionText:
+          type: string
+        correctAnswer:
+          type: string
+        possibleAnswers:
+          type: array
+          items:
+            type: string
+    QuestionDto:
+      type: object
+      properties:
+        questionText:
+          type: string
+        possibleAnswers:
+          type: array
+          items:
+            type: string
+        correctAnswer:
+          type: string
+        questionPicture:
+          type: array
+          items:
+            type: string
+            format: byte
+    QuizDto:
+      type: object
+      properties:
+        category:
+          type: string
+        description:
+          type: string
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionDto'
+    QuizResult:
+      type: object
+      properties:
+        category:
+          type: string
+        playerScores:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    UserDto:
+      type: object
+      properties:
+        name:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        friends:
+          type: array
+          items:
+            type: string
+        profilePictureUrl:
+          type: string
+        quizCount:
+          type: integer
+          format: int32
+        wonQuizCount:
+          type: integer
+          format: int32
+        totalPoints:
+          type: integer
+          format: int32
+    LeaderboardDto:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        quizCategory:
+          type: string
+        score:
+          type: number
+          format: double
+  securitySchemes:
+    bearer-key:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
