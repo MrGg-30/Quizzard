@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +37,7 @@ public class UserService {
         newUser.setEmail(userAttributes.getEmail());
         newUser.setName(userAttributes.getName());
         newUser.setLastName(userAttributes.getLastName());
-        newUser.setFriends(Collections.emptyList());
+        newUser.setFriends(new ArrayList<>());
         newUser.setQuizCount(0);
         newUser.setWonQuizCount(0);
         newUser.setTotalPoints(0);
