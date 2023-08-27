@@ -6,7 +6,6 @@ import com.freeuni.quizzard.common.api.openapi.error.OpenApi500ErrorResponse;
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.QuizRequest;
 import com.freeuni.quizzard.model.QuizResult;
-import com.mongodb.lang.Nullable;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
