@@ -1,12 +1,17 @@
-import React from 'react';
-import Navbar from './components/Navbar/Navbar';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import BigHeader from "./layouts/BigHeader";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  return (
-    <div className="App">
-      <Navbar />
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route element={<BigHeader/>}>
+                    <Route path="/" element={<Dashboard/>}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
