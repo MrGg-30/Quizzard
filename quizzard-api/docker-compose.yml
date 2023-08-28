@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+
+  quizzard:
+    image: mrgg12/quizzard-app:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - keycloak.serverUrl=http://ec2-3-86-49-119.compute-1.amazonaws.com:8090
+      - spring.security.oauth2.resourceserver.jwt.issuer-uri=http://ec2-34-230-69-28.compute-1.amazonaws.com:8090/realms/quizzard
+      - spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://ec2-34-230-69-28.compute-1.amazonaws.com:8090/realms/quizzard/protocol/openid-connect/certs
+    restart: on-failure

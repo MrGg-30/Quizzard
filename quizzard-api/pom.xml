@@ -98,6 +98,25 @@
 			<artifactId>keycloak-spring-boot-starter</artifactId>
 			<version>22.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.1</version> <!-- Use the same version as below -->
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.8.1</version> <!-- Use the same version as above -->
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.1</version> <!-- Use the latest version -->
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
