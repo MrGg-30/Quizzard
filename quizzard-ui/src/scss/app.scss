@@ -520,6 +520,124 @@
 }
 
 
+.leader-board {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px 10%;
+  row-gap: 50px;
+
+  > p.title {
+    width: 100%;
+    text-align: center;
+    color: #354479;
+    font-size: 50px;
+    font-weight: 300;
+
+    > b {
+      color: #F3AA60;
+      font-weight: 600;
+    }
+  }
+
+  > .left {
+    width: 50%;
+
+    > .position-bars {
+      display: flex;
+      align-items: flex-end;
+      padding-top: 50px;
+
+      > .p1, .p2, .p3 {
+        width: 120px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        color: #fff;
+        font-size: 56px;
+        font-weight: 700;
+        position: relative;
+
+        > .badge {
+          position: absolute;
+          top: -70px;
+
+          > img.m {
+            width: 24px;
+            height: 24px;
+            z-index: 4;
+            //position: absolute;
+          }
+
+          > img.dp {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            right: -10px;
+            z-index: -1;
+          }
+        }
+      }
+
+      > .p1 {
+        background-color: #EF6262;
+        opacity: 0.8;
+        height: 200px;
+
+      }
+
+      > .p2 {
+        background-color: #EF6262;
+        height: 150px;
+      }
+
+      > .p3 {
+        background-color: #EF6262;
+        height: 100px;
+      }
+    }
+  }
+
+  > .right {
+    width: 50%;
+
+    > .point-list {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+
+      > .point {
+        border: solid #354479 1px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 10px;
+
+        > .medal {
+          display: flex;
+          align-items: center;
+
+          > img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        > p.name {
+
+        }
+
+        > span.scores {
+          color: #EF6262;
+        }
+      }
+    }
+  }
+}
+
+
 @media (max-width: 720px) {
 
   .dashboard-header {
@@ -1037,4 +1155,122 @@
       }
     }
   }
+
+  .leader-board {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    row-gap: 50px;
+
+    > p.title {
+      width: 100%;
+      text-align: center;
+      color: #354479;
+      font-size: 30px;
+      font-weight: 300;
+
+      > b {
+        color: #F3AA60;
+        font-weight: 600;
+      }
+    }
+
+    > .left {
+      width: 100%;
+
+      > .position-bars {
+        display: flex;
+        align-items: flex-end;
+        padding-top: 50px;
+
+        > .p1, .p2, .p3 {
+          width: 120px;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          color: #fff;
+          font-size: 56px;
+          font-weight: 700;
+          position: relative;
+
+          > .badge {
+            position: absolute;
+            top: -70px;
+
+            > img.m {
+              width: 24px;
+              height: 24px;
+              z-index: 4;
+              //position: absolute;
+            }
+
+            > img.dp {
+              width: 42px;
+              height: 42px;
+              border-radius: 50%;
+              position: absolute;
+              top: 6px;
+              right: -10px;
+              z-index: -1;
+            }
+          }
+        }
+
+        > .p1 {
+          background-color: #EF6262;
+          opacity: 0.8;
+          height: 200px;
+
+        }
+
+        > .p2 {
+          background-color: #EF6262;
+          height: 150px;
+        }
+
+        > .p3 {
+          background-color: #EF6262;
+          height: 100px;
+        }
+      }
+    }
+
+    > .right {
+      width: 100%;
+
+      > .point-list {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        > .point {
+          border: solid #354479 1px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 5px 10px;
+
+          > .medal {
+            display: flex;
+            align-items: center;
+
+            > img {
+              width: 24px;
+              height: 24px;
+            }
+          }
+
+          > p.name {
+
+          }
+
+          > span.scores {
+            color: #EF6262;
+          }
+        }
+      }
+    }
+  }
+
 }
