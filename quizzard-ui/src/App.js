@@ -4,6 +4,7 @@ import Master from "./layouts/Master";
 import Dashboard from "./pages/Dashboard";
 import PlayStart from "./pages/PlayStart";
 import PlayWithFriend from "./pages/PlayWithFriend";
+import GameResults from "./pages/GameResults";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                 <Route element={<Master/>}>
                     <Route path="/play-with-friends" element={<PlayWithFriend/>}/>
                     <Route path="/play-start" element={<PlayStart/>}/>
+                    <Route path="/game-results" element={<GameResults/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
