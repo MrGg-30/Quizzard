@@ -440,6 +440,96 @@
   opacity: 0.8;
   text-transform: uppercase;
 }
+.leader-board {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px 10%;
+  row-gap: 50px;
+}
+.leader-board > p.title {
+  width: 100%;
+  text-align: center;
+  color: #354479;
+  font-size: 50px;
+  font-weight: 300;
+}
+.leader-board > p.title > b {
+  color: #F3AA60;
+  font-weight: 600;
+}
+.leader-board > .left {
+  width: 50%;
+}
+.leader-board > .left > .position-bars {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 50px;
+}
+.leader-board > .left > .position-bars > .p1, .leader-board > .left > .position-bars .p2, .leader-board > .left > .position-bars .p3 {
+  width: 120px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: #fff;
+  font-size: 56px;
+  font-weight: 700;
+  position: relative;
+}
+.leader-board > .left > .position-bars > .p1 > .badge, .leader-board > .left > .position-bars .p2 > .badge, .leader-board > .left > .position-bars .p3 > .badge {
+  position: absolute;
+  top: -70px;
+}
+.leader-board > .left > .position-bars > .p1 > .badge > img.m, .leader-board > .left > .position-bars .p2 > .badge > img.m, .leader-board > .left > .position-bars .p3 > .badge > img.m {
+  width: 24px;
+  height: 24px;
+  z-index: 4;
+}
+.leader-board > .left > .position-bars > .p1 > .badge > img.dp, .leader-board > .left > .position-bars .p2 > .badge > img.dp, .leader-board > .left > .position-bars .p3 > .badge > img.dp {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  position: absolute;
+  top: 6px;
+  right: -10px;
+  z-index: -1;
+}
+.leader-board > .left > .position-bars > .p1 {
+  background-color: #EF6262;
+  opacity: 0.8;
+  height: 200px;
+}
+.leader-board > .left > .position-bars > .p2 {
+  background-color: #EF6262;
+  height: 150px;
+}
+.leader-board > .left > .position-bars > .p3 {
+  background-color: #EF6262;
+  height: 100px;
+}
+.leader-board > .right {
+  width: 50%;
+}
+.leader-board > .right > .point-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.leader-board > .right > .point-list > .point {
+  border: solid #354479 1px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+.leader-board > .right > .point-list > .point > .medal {
+  display: flex;
+  align-items: center;
+}
+.leader-board > .right > .point-list > .point > .medal > img {
+  width: 24px;
+  height: 24px;
+}
 
 @media (max-width: 720px) {
   .dashboard-header {
@@ -859,6 +949,99 @@
     padding: 10px 35px;
     opacity: 0.8;
     text-transform: uppercase;
+  }
+  .leader-board {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    row-gap: 50px;
+  }
+  .leader-board > p.title {
+    width: 100%;
+    text-align: center;
+    color: #354479;
+    font-size: 30px;
+    font-weight: 300;
+  }
+  .leader-board > p.title > b {
+    color: #F3AA60;
+    font-weight: 600;
+  }
+  .leader-board > .left {
+    width: 100%;
+  }
+  .leader-board > .left > .position-bars {
+    display: flex;
+    align-items: flex-end;
+    padding-top: 50px;
+  }
+  .leader-board > .left > .position-bars > .p1, .leader-board > .left > .position-bars .p2, .leader-board > .left > .position-bars .p3 {
+    width: 120px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: #fff;
+    font-size: 56px;
+    font-weight: 700;
+    position: relative;
+  }
+  .leader-board > .left > .position-bars > .p1 > .badge, .leader-board > .left > .position-bars .p2 > .badge, .leader-board > .left > .position-bars .p3 > .badge {
+    position: absolute;
+    top: -70px;
+  }
+  .leader-board > .left > .position-bars > .p1 > .badge > img.m, .leader-board > .left > .position-bars .p2 > .badge > img.m, .leader-board > .left > .position-bars .p3 > .badge > img.m {
+    width: 24px;
+    height: 24px;
+    z-index: 4;
+  }
+  .leader-board > .left > .position-bars > .p1 > .badge > img.dp, .leader-board > .left > .position-bars .p2 > .badge > img.dp, .leader-board > .left > .position-bars .p3 > .badge > img.dp {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    right: -10px;
+    z-index: -1;
+  }
+  .leader-board > .left > .position-bars > .p1 {
+    background-color: #EF6262;
+    opacity: 0.8;
+    height: 200px;
+  }
+  .leader-board > .left > .position-bars > .p2 {
+    background-color: #EF6262;
+    height: 150px;
+  }
+  .leader-board > .left > .position-bars > .p3 {
+    background-color: #EF6262;
+    height: 100px;
+  }
+  .leader-board > .right {
+    width: 100%;
+  }
+  .leader-board > .right > .point-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .leader-board > .right > .point-list > .point {
+    border: solid #354479 1px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+  }
+  .leader-board > .right > .point-list > .point > .medal {
+    display: flex;
+    align-items: center;
+  }
+  .leader-board > .right > .point-list > .point > .medal > img {
+    width: 24px;
+    height: 24px;
+  }
+  .leader-board > .right > .point-list > .point > span.scores {
+    color: #EF6262;
   }
 }
 
