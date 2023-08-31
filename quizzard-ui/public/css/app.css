@@ -357,6 +357,90 @@
   font-weight: 600;
 }
 
+.game-result-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  align-items: center;
+}
+.game-result-layout > p.title {
+  color: #225274;
+  font-weight: 500;
+  font-size: 36px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+}
+.game-result-layout > .players {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  justify-content: center;
+}
+.game-result-layout > .players > .me, .game-result-layout > .players .friend {
+  position: relative;
+  width: 150px;
+  text-align: center;
+}
+.game-result-layout > .players > .me img.dp, .game-result-layout > .players .friend img.dp {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: solid #fff 3px;
+  display: block;
+}
+.game-result-layout > .players > .me img.dp.b-green, .game-result-layout > .players .friend img.dp.b-green {
+  border-color: #32A776;
+}
+.game-result-layout > .players > .me img.dp.b-red, .game-result-layout > .players .friend img.dp.b-red {
+  border-color: #E04357;
+}
+.game-result-layout > .players > .me img.top, .game-result-layout > .players .friend img.top {
+  position: absolute;
+  top: -60px;
+  right: 40px;
+  width: 75px;
+  height: 75px;
+}
+.game-result-layout > .players > .me span, .game-result-layout > .players .friend span {
+  font-weight: 700;
+  color: #333;
+}
+.game-result-layout > .players > .points {
+  display: flex;
+  align-items: center;
+  color: #225274;
+  font-size: 36px;
+  font-weight: 700;
+  column-gap: 20px;
+}
+.game-result-layout > .players > .points > span.green {
+  color: #32A776;
+}
+.game-result-layout > .players > .points > span.red {
+  color: #E04357;
+}
+.game-result-layout > .pics {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  column-gap: 40px;
+  margin-top: 10px;
+}
+.game-result-layout > .pics > img {
+  width: 300px;
+  height: auto;
+}
+.game-result-layout > .pics > a {
+  background-color: orange;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 36px;
+  padding: 10px 35px;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
 @media (max-width: 720px) {
   .dashboard-header {
     background-image: none;
@@ -690,177 +774,92 @@
     font-weight: 700;
     font-size: 13px;
   }
-}
 
-.game-result-layout {
-  display: flex;
-  flex-direction: column;
-  padding: 40px 60px;
-  align-items: center;
-}
-.game-result-layout > p.title {
-  color: #225274;
-  font-weight: 500;
-  font-size: 36px;
-  text-transform: uppercase;
-  line-height: 1.2;
-  text-align: center;
-}
-.game-result-layout > .players {
-  display: flex;
-  align-items: center;
-  column-gap: 50px;
-  justify-content: center;
-}
-.game-result-layout > .players > .me, .game-result-layout > .players .friend {
-  position: relative;
-  width: 150px;
-  text-align: center;
-}
-.game-result-layout > .players > .me img.dp, .game-result-layout > .players .friend img.dp {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  border: solid #fff 3px;
-  display: block;
-}
-.game-result-layout > .players > .me img.dp.b-green, .game-result-layout > .players .friend img.dp.b-green {
-  border-color: #32A776;
-}
-.game-result-layout > .players > .me img.dp.b-red, .game-result-layout > .players .friend img.dp.b-red {
-  border-color: #E04357;
-}
-.game-result-layout > .players > .me img.top, .game-result-layout > .players .friend img.top {
-  position: absolute;
-  top: -60px;
-  right: 40px;
-  width: 75px;
-  height: 75px;
-}
-.game-result-layout > .players > .me span, .game-result-layout > .players .friend span {
-  font-weight: 700;
-  color: #333;
-}
-.game-result-layout > .players > .points {
-  display: flex;
-  align-items: center;
-  color: #225274;
-  font-size: 36px;
-  font-weight: 700;
-  column-gap: 20px;
-}
-.game-result-layout > .players > .points > span.green {
-  color: #32A776;
-}
-.game-result-layout > .players > .points > span.red {
-  color: #E04357;
-}
-.game-result-layout > .pics {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  column-gap: 40px;
-  margin-top: 10px;
-}
-.game-result-layout > .pics > img {
-  width: 300px;
-  height: auto;
-}
-.game-result-layout > .pics > a {
-  background-color: orange;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 36px;
-  padding: 10px 35px;
-  opacity: 0.8;
-  text-transform: uppercase;
-}
-
-
-.game-result-layout {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px;
-  align-items: center;
-  row-gap: 50px;
-}
-.game-result-layout > p.title {
-  color: #225274;
-  font-weight: 500;
-  font-size: 24px;
-  text-transform: uppercase;
-  line-height: 1.2;
-  text-align: center;
-}
-.game-result-layout > .players {
-  display: flex;
-  align-items: center;
-  column-gap: 25px;
-  justify-content: center;
-}
-.game-result-layout > .players > .me, .game-result-layout > .players .friend {
-  position: relative;
-  width: 75px;
-  text-align: center;
-}
-.game-result-layout > .players > .me img.dp, .game-result-layout > .players .friend img.dp {
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
-  border: solid #fff 3px;
-  display: block;
-}
-.game-result-layout > .players > .me img.dp.b-green, .game-result-layout > .players .friend img.dp.b-green {
-  border-color: #32A776;
-}
-.game-result-layout > .players > .me img.dp.b-red, .game-result-layout > .players .friend img.dp.b-red {
-  border-color: #E04357;
-}
-.game-result-layout > .players > .me img.top, .game-result-layout > .players .friend img.top {
-  position: absolute;
-  top: -40px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-}
-.game-result-layout > .players > .me span, .game-result-layout > .players .friend span {
-  font-weight: 700;
-  color: #333;
-}
-.game-result-layout > .players > .points {
-  display: flex;
-  align-items: center;
-  color: #225274;
-  font-size: 24px;
-  font-weight: 600;
-  column-gap: 10px;
-}
-.game-result-layout > .players > .points > span.green {
-  color: #32A776;
-}
-.game-result-layout > .players > .points > span.red {
-  color: #E04357;
-}
-.game-result-layout > .pics {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  column-gap: 40px;
-  margin-top: 10px;
-}
-.game-result-layout > .pics > img {
-  width: 300px;
-  height: auto;
-  display: none;
-}
-.game-result-layout > .pics > a {
-  background-color: orange;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 36px;
-  padding: 10px 35px;
-  opacity: 0.8;
-  text-transform: uppercase;
+  .game-result-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    align-items: center;
+    row-gap: 50px;
+  }
+  .game-result-layout > p.title {
+    color: #225274;
+    font-weight: 500;
+    font-size: 24px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .game-result-layout > .players {
+    display: flex;
+    align-items: center;
+    column-gap: 25px;
+    justify-content: center;
+  }
+  .game-result-layout > .players > .me, .game-result-layout > .players .friend {
+    position: relative;
+    width: 75px;
+    text-align: center;
+  }
+  .game-result-layout > .players > .me img.dp, .game-result-layout > .players .friend img.dp {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border: solid #fff 3px;
+    display: block;
+  }
+  .game-result-layout > .players > .me img.dp.b-green, .game-result-layout > .players .friend img.dp.b-green {
+    border-color: #32A776;
+  }
+  .game-result-layout > .players > .me img.dp.b-red, .game-result-layout > .players .friend img.dp.b-red {
+    border-color: #E04357;
+  }
+  .game-result-layout > .players > .me img.top, .game-result-layout > .players .friend img.top {
+    position: absolute;
+    top: -40px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+  }
+  .game-result-layout > .players > .me span, .game-result-layout > .players .friend span {
+    font-weight: 700;
+    color: #333;
+  }
+  .game-result-layout > .players > .points {
+    display: flex;
+    align-items: center;
+    color: #225274;
+    font-size: 24px;
+    font-weight: 600;
+    column-gap: 10px;
+  }
+  .game-result-layout > .players > .points > span.green {
+    color: #32A776;
+  }
+  .game-result-layout > .players > .points > span.red {
+    color: #E04357;
+  }
+  .game-result-layout > .pics {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    column-gap: 40px;
+    margin-top: 10px;
+  }
+  .game-result-layout > .pics > img {
+    width: 300px;
+    height: auto;
+    display: none;
+  }
+  .game-result-layout > .pics > a {
+    background-color: orange;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 36px;
+    padding: 10px 35px;
+    opacity: 0.8;
+    text-transform: uppercase;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */
