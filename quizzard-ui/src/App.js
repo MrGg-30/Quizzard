@@ -3,6 +3,7 @@ import BigHeader from "./layouts/BigHeader";
 import Master from "./layouts/Master";
 import Dashboard from "./pages/Dashboard";
 import PlayStart from "./pages/PlayStart";
+import PlayWithFriend from "./pages/PlayWithFriend";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                     <Route path="/" element={<Dashboard/>}/>
                 </Route>
                 <Route element={<Master/>}>
+                    <Route path="/play-with-friends" element={<PlayWithFriend/>}/>
                     <Route path="/play-start" element={<PlayStart/>}/>
                 </Route>
             </Routes>
