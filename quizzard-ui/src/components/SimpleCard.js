@@ -11,6 +11,7 @@ function SimpleCard({title, photo}) {
                 <i className="fa-solid fa-star"></i>
                 <i className="fa-solid fa-star"></i>
                 <i className="fa-regular fa-star"></i>
+                <span>(difficulty)</span>
             </div>
             <a href="#" className="card-btn">
                 Play Now

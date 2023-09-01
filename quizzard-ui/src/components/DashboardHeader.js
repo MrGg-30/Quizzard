@@ -23,7 +23,7 @@ function DashboardHeader() {
 
                     <a className="link" href="#">
                         <i className="fa-solid fa-medal"></i>
-                        Leaderboard
+                        <span>Leaderboard</span>
                     </a>
 
                     <a className="nav-btn" href="#">

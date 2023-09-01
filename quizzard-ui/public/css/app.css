@@ -440,6 +440,7 @@
   opacity: 0.8;
   text-transform: uppercase;
 }
+
 .leader-board {
   display: flex;
   flex-wrap: wrap;
@@ -529,6 +530,123 @@
 .leader-board > .right > .point-list > .point > .medal > img {
   width: 24px;
   height: 24px;
+}
+.leader-board > .right > .point-list > .point > span.scores {
+  color: #EF6262;
+}
+
+.friends-layout {
+  display: flex;
+  column-gap: 25px;
+  padding: 40px 10%;
+}
+.friends-layout > .friends {
+  flex: 1;
+  min-width: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  padding: 20px;
+  row-gap: 10px;
+}
+.friends-layout > .friends > p.title {
+  color: #1D5B79;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+.friends-layout > .friends > .user-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid #354479 1px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.friends-layout > .friends > .user-node > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.friends-layout > .friends > .user-node > p {
+  color: #1D5B79;
+}
+.friends-layout > .friends > .user-node > .icons {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+.friends-layout > .send-request {
+  flex: 1;
+  min-width: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+.friends-layout > .send-request > p.title {
+  color: #1D5B79;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+.friends-layout > .send-request > form > input {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 36px;
+  border: solid #999 1px;
+  font-size: 18px;
+}
+.friends-layout > .send-request > img {
+  width: 100%;
+  object-fit: cover;
+  margin-top: 50px;
+}
+.friends-layout > .get-requests {
+  flex: 1;
+  min-width: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  padding: 20px;
+  row-gap: 10px;
+}
+.friends-layout > .get-requests > p.title {
+  color: #1D5B79;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+.friends-layout > .get-requests > .user-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid #354479 1px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.friends-layout > .get-requests > .user-node > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.friends-layout > .get-requests > .user-node > p {
+  color: #1D5B79;
+}
+.friends-layout > .get-requests > .user-node > .icons {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+.friends-layout > .get-requests > .user-node > .icons > i {
+  font-size: 18px;
+}
+.friends-layout > .get-requests > .user-node > .icons > i.fa-check {
+  color: #32A776;
+}
+.friends-layout > .get-requests > .user-node > .icons > i.fa-times {
+  color: #EF6262;
 }
 
 @media (max-width: 720px) {
@@ -693,7 +811,6 @@
     align-items: center;
     justify-content: center;
   }
-
   .play-with-layout {
     display: flex;
     padding: 20px 20px;
@@ -774,7 +891,6 @@
     border-radius: 4px;
     align-self: center;
   }
-
   .play-start-layout {
     display: flex;
     flex-direction: column-reverse;
@@ -864,7 +980,6 @@
     font-weight: 700;
     font-size: 13px;
   }
-
   .game-result-layout {
     display: flex;
     flex-direction: column;
@@ -1041,6 +1156,120 @@
     height: 24px;
   }
   .leader-board > .right > .point-list > .point > span.scores {
+    color: #EF6262;
+  }
+  .friends-layout {
+    display: flex;
+    flex-direction: column-reverse;
+    column-gap: 25px;
+    padding: 40px 20px;
+  }
+  .friends-layout > .friends {
+    flex: 1;
+    min-width: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 20px;
+    row-gap: 10px;
+  }
+  .friends-layout > .friends > p.title {
+    color: #1D5B79;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .friends-layout > .friends > .user-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid #354479 1px;
+    border-radius: 8px;
+    padding: 4px 8px;
+  }
+  .friends-layout > .friends > .user-node > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .friends-layout > .friends > .user-node > p {
+    color: #1D5B79;
+  }
+  .friends-layout > .friends > .user-node > .icons {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+  .friends-layout > .send-request {
+    flex: 1;
+    min-width: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+  }
+  .friends-layout > .send-request > p.title {
+    color: #1D5B79;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+  }
+  .friends-layout > .send-request > form > input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 36px;
+    border: solid #999 1px;
+    font-size: 18px;
+  }
+  .friends-layout > .send-request > img {
+    width: 100%;
+    object-fit: cover;
+    margin-top: 50px;
+  }
+  .friends-layout > .get-requests {
+    flex: 1;
+    min-width: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 20px;
+    row-gap: 10px;
+  }
+  .friends-layout > .get-requests > p.title {
+    color: #1D5B79;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .friends-layout > .get-requests > .user-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid #354479 1px;
+    border-radius: 8px;
+    padding: 4px 8px;
+  }
+  .friends-layout > .get-requests > .user-node > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .friends-layout > .get-requests > .user-node > p {
+    color: #1D5B79;
+  }
+  .friends-layout > .get-requests > .user-node > .icons {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+  }
+  .friends-layout > .get-requests > .user-node > .icons > i {
+    font-size: 18px;
+  }
+  .friends-layout > .get-requests > .user-node > .icons > i.fa-check {
+    color: #32A776;
+  }
+  .friends-layout > .get-requests > .user-node > .icons > i.fa-times {
     color: #EF6262;
   }
 }
