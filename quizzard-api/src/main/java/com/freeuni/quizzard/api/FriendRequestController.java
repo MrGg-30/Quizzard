@@ -27,6 +27,14 @@ public class FriendRequestController implements FriendRequestApi{
         return ResponseEntity.ok(requests);
     }
 
+    public void sendFriendRequest(FriendRequest request) {
+        friendRequestService.createNewRequest(request);
+    }
+
+    public void respondFriendRequest(FriendRequest request) {
+        friendRequestService.friendResponse(request);
+    }
+
     @MessageMapping("/friend-request")
     public FriendRequest friendRequest(@Payload FriendRequest message){
         System.out.println(message);

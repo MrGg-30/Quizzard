@@ -18,7 +18,5 @@ public class FriendRequestEntity {
 
     private String requestReceiver;
 
-    private String text;
-
     private RequestStatus status;
 }
