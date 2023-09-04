@@ -648,6 +648,100 @@
 .friends-layout > .get-requests > .user-node > .icons > i.fa-times {
   color: #EF6262;
 }
+.profile-layout {
+  display: flex;
+  align-items: flex-start;
+  padding: 40px 60px;
+  column-gap: 50px;
+}
+.profile-layout > .profile-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 25px;
+}
+.profile-layout > .profile-header > img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+.profile-layout > .profile-header > p.name {
+  font-size: 30px;
+}
+.profile-layout > .profile-header > a.logout-btn {
+  background-color: #275579;
+  color: #fff;
+  padding: 10px 40px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: 300;
+}
+.profile-layout > .count-cards-cover {
+  flex: 1;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.profile-layout .friends {
+  flex: 1;
+  min-width: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  padding: 20px;
+  row-gap: 10px;
+}
+.profile-layout .friends > p.title {
+  color: #1D5B79;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+.profile-layout .friends > .user-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid #354479 1px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.profile-layout .friends > .user-node > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.profile-layout .friends > .user-node > p {
+  color: #1D5B79;
+}
+.profile-layout .friends > .user-node > .icons {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.count-cards {
+  display: flex;
+  align-items: flex-start;
+  border: solid 1px #888;
+  border-radius: 12px;
+  width: 45%;
+  padding: 15px;
+}
+.count-cards > img {
+  width: 25px;
+  height: 25px;
+}
+.count-cards > .info {
+  padding-left: 10px;
+}
+.count-cards > .info > p.count {
+  font-size: 18px;
+}
+.count-cards > .info > p.name {
+  color: #888;
+}
 
 @media (max-width: 720px) {
   .dashboard-header {
@@ -1271,6 +1365,83 @@
   }
   .friends-layout > .get-requests > .user-node > .icons > i.fa-times {
     color: #EF6262;
+  }
+  .profile-layout {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px 20px;
+    column-gap: 50px;
+    flex-direction: column;
+    row-gap: 25px;
+  }
+  .profile-layout > .profile-header {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 25px;
+  }
+  .profile-layout > .profile-header > img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+  }
+  .profile-layout > .profile-header > p.name {
+    font-size: 30px;
+  }
+  .profile-layout > .profile-header > a.logout-btn {
+    background-color: #275579;
+    color: #fff;
+    padding: 10px 40px;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .profile-layout > .count-cards-cover {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .profile-layout .friends {
+    flex: 1;
+    width: 100%;
+    min-width: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 20px;
+    row-gap: 10px;
+  }
+  .profile-layout .friends > p.title {
+    color: #1D5B79;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .profile-layout .friends > .user-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid #354479 1px;
+    border-radius: 8px;
+    padding: 4px 8px;
+  }
+  .profile-layout .friends > .user-node > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .profile-layout .friends > .user-node > p {
+    color: #1D5B79;
+  }
+  .profile-layout .friends > .user-node > .icons {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
   }
 }
 
