@@ -7,7 +7,7 @@ quizzard:
   adminRole: ADMIN
 
 keycloak:
-  serverUrl: http://ec2-34-230-69-28.compute-1.amazonaws.com:8090
+  serverUrl: http://ec2-54-146-58-234.compute-1.amazonaws.com:8090
   realm: master
   username: admin
   password: admin
@@ -23,7 +23,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://ec2-34-230-69-28.compute-1.amazonaws.com:8090/realms/quizzard
+          issuer-uri: http://ec2-54-146-58-234.compute-1.amazonaws.com:8090/realms/quizzard
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
   data:
     mongodb:
