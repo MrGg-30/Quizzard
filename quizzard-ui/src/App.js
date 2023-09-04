@@ -12,9 +12,12 @@ import Profile from "./pages/Profile";
 import {Dimmer, Header, Icon, Loader} from 'semantic-ui-react'
 import {ReactKeycloakProvider} from '@react-keycloak/web'
 import {Api} from "./api";
+import Logout from './components/Logout';
 import PrivateRoute from "./components/PrivateRoute"
 import PageNotFound from "./pages/404";
 import { useState } from "react";
+import CreateQuiz from "./pages/CreateQuiz";
+import SinglePlayer from "./pages/SinglePlayer";
 
 function App() {
     const [user, setUser] = useState(undefined)
@@ -23,6 +26,8 @@ function App() {
     const handleOnEvent = async (event, error) => {
         if (event === 'onAuthSuccess') {
             if (keycloak.authenticated) {
+                // console.log(keycloak.tokenParsed.preferred_username)
+                // console.log(keycloak.token)
                 try {
                     const response = await Api.getUserByToken(keycloak.token);
 
@@ -73,6 +78,8 @@ function App() {
                         <Route path="/leader-board" element={<PrivateRoute><LeaderBoard keycloak={keycloak} /></PrivateRoute>}/>
                         <Route path="/friends" element={<PrivateRoute><Friends keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/profile" element={<PrivateRoute><Profile keycloak={keycloak} user={user} /></PrivateRoute>}/>
+                        <Route path="/single-player" element={<PrivateRoute><SinglePlayer keycloak={keycloak} user={user} /></PrivateRoute>}/>
+                        <Route path="/create-quiz" element={<PrivateRoute><CreateQuiz keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="*" element={<PrivateRoute><PageNotFound /></PrivateRoute>}/>
                     </Route>
                 </Routes>
