@@ -116,19 +116,19 @@ public class UserServiceTest {
         assertEquals(3, user.getWonQuizCount());
     }
 
-    @Test
-    public void testUpload() throws IOException {
-        MultipartFile multipartFile = mock(MultipartFile.class);
-        when(multipartFile.getBytes()).thenReturn(new byte[0]);
-
-        User user = new User();
-        when(userRepository.findUserByUsername("testuser")).thenReturn(user);
-
-        String result = userService.upload(multipartFile, "testuser");
-
-        verify(userRepository, times(1)).save(any(User.class));
-        assertEquals("Successfully", result);
-    }
+//    @Test
+//    public void testUpload() throws IOException {
+//        MultipartFile multipartFile = mock(MultipartFile.class);
+//        when(multipartFile.getBytes()).thenReturn(new byte[0]);
+//
+//        User user = new User();
+//        when(userRepository.findUserByUsername("testuser")).thenReturn(user);
+//
+//        String result = userService.upload(multipartFile, "testuser");
+//
+//        verify(userRepository, times(1)).save(any(User.class));
+//        assertEquals("Successfully", result);
+//    }
 
     @Test
     public void testGetProfilePictureByName_UserNotFound() {

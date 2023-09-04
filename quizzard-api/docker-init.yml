@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  quizzard:
+    build:
+      context: .
+      dockerfile: Dockerfile-Quizzard
+    environment:
+      keycloak.serverUrl: http://ec2-34-229-188-81.compute-1.amazonaws.com:8090
+      spring.security.oauth2.resourceserver.jwt.issuer-uri: http://ec2-34-229-188-81.compute-1.amazonaws.com:8090
+      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://ec2-34-229-188-81.compute-1.amazonaws.com:8090/protocol/openid-connect/certs
+    ports:
+      - "8081:8081"
