@@ -1,35 +1,39 @@
-import {compareArraysAsSet} from "@testing-library/jest-dom/dist/utils";
+import { Link, useNavigate } from 'react-router-dom'
+import { routes } from '../routes';
 
-function DashboardHeader() {
+import '../scss/app.scss';
+
+function DashboardHeader({ keycloak }) {
+    const navigate = useNavigate();
+
     return (
         <div className="dashboard-header">
             <div className="transparent-nav">
 
-                <div className="logo">
+                <div className="logo" onClick={() => navigate(routes.main)}>
                     <img src="media/baba-logo.svg" alt="Logo"/>
                     <p>QUIZZARD</p>
                 </div>
 
                 <div className="icons">
-                    <a className="link" href="#">
+                    <a className="link cursor-pointer" onClick={() => navigate(routes.playWithFriends)}>
                         <i className="fa-solid fa-gamepad"></i>
                         <span>Play</span>
                     </a>
 
-                    <a className="link" href="#">
+                    <a className="link cursor-pointer" onClick={() => navigate(routes.createQuiz)}>
                         <i className="fa-regular fa-circle-question"></i>
                         <span>Create Quiz</span>
                     </a>
 
-                    <a className="link" href="#">
+                    <a className="link cursor-pointer" onClick={() => navigate(routes.leaderBoard)}>
                         <i className="fa-solid fa-medal"></i>
                         <span>Leaderboard</span>
                     </a>
 
-                    <a className="nav-btn" href="#">
-                        SIGN UP
-                    </a>
-
+                    <Link className="nav-btn" to={routes.userProfile}>
+                        Login
+                    </Link>
                 </div>
             </div>
             <div className="dis">
