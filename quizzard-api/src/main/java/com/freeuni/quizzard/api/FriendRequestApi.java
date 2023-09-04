@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -29,4 +31,14 @@ public interface  FriendRequestApi {
     })
     @GetMapping("/pendingRequests/{username}")
     ResponseEntity<List<FriendRequest>> getReceivedPendingRequests(@PathVariable String username);
+
+    @Operation(summary = "Send friend request",
+            security = {@SecurityRequirement(name = "bearer-key")})
+    @PostMapping("/friends/request")
+    void sendFriendRequest(@RequestBody FriendRequest request);
+
+    @Operation(summary = "Send friend response",
+            security = {@SecurityRequirement(name = "bearer-key")})
+    @PostMapping("/friends/response")
+    void respondFriendRequest(@RequestBody FriendRequest request);
 }
