@@ -21,22 +21,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+                .requestMatchers("/ws/**").permitAll()
                 .requestMatchers("/swagger-ui/**",
                         "/swagger-resources/*",
                         "/v3/api-docs/**")
                 .permitAll()
 
-//                .requestMatchers(HttpMethod.GET, "/**", "/**").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/**", "/**").permitAll()
-//
-//                .requestMatchers(HttpMethod.POST, "/**", "/**").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/user/create", "/user/create/**").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/app/*", "/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/quiz/**", "/quiz/questions/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/leaderboard/**", "/leaderboard/rating/**").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/quiz/**", "/quiz/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/user", "/**").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/user/email","/user/email/**").hasAnyRole(ADMIN,USER)
                  // TODO add endpoints to secure based on roles
                 .anyRequest().authenticated().and().logout().permitAll();
         http.oauth2ResourceServer()

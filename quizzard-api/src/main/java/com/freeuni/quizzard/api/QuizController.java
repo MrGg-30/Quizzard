@@ -2,6 +2,7 @@ package com.freeuni.quizzard.api;
 
 import com.freeuni.quizzard.dto.QuizDto;
 import com.freeuni.quizzard.model.GameRequest;
+import com.freeuni.quizzard.model.GameResult;
 import com.freeuni.quizzard.model.QuizRequest;
 import com.freeuni.quizzard.model.QuizResult;
 import com.freeuni.quizzard.service.LeaderboardService;
@@ -68,5 +69,17 @@ public class QuizController implements QuizApi{
         gameRequest.setStatus(gameRequest.getStatus());
         System.out.println(gameRequest);
         webSocketService.sendGameResponse(gameRequest.getFrom(), gameRequest);
+    }
+
+    @MessageMapping("/game-result")
+    public void sendGameResult(@Payload GameResult result) {
+//        gameRequest.setStatus(gameRequest.getStatus());
+        System.out.println(result);
+        webSocketService.sendGameResult(result.getAnotherUsername(), result);
+    }
+
+    @MessageMapping("/session-id")
+    public void sendSessionId(@Payload GameRequest gameRequest) {
+
     }
 }
