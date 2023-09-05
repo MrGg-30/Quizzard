@@ -7,6 +7,7 @@ function Profile({ keycloak }) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+
         const fetchUser = async () => {
         try {
             const fetchedUser = await Api.getUserByToken(keycloak.token); 
@@ -16,7 +17,14 @@ function Profile({ keycloak }) {
         }
         };
 
-        fetchUser();
+        const timer = setTimeout(() => {
+            fetchUser();
+        }, 2000);  // For 1 second. Change to 2000 for 2 seconds.
+
+        // Cleanup function to clear the timer
+        return () => {
+            clearTimeout(timer);
+        };
     }, []); 
 
     const handleProfilePicUpload = async (event) => {
