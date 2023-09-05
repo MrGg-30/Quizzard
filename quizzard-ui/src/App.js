@@ -12,12 +12,12 @@ import Profile from "./pages/Profile";
 import {Dimmer, Header, Icon, Loader} from 'semantic-ui-react'
 import {ReactKeycloakProvider} from '@react-keycloak/web'
 import {Api} from "./api";
-import Logout from './components/Logout';
 import PrivateRoute from "./components/PrivateRoute"
 import PageNotFound from "./pages/404";
 import { useState } from "react";
 import CreateQuiz from "./pages/CreateQuiz";
 import SinglePlayer from "./pages/SinglePlayer";
+import MultiPlayer from "./pages/MultiPlayer";
 
 function App() {
     const [user, setUser] = useState(undefined)
@@ -74,14 +74,20 @@ function App() {
                     <Route element={<Master/>}>
                         <Route path="/play-with-friends" element={<PrivateRoute><PlayWithFriend keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/play-start" element={<PrivateRoute><PlayStart/></PrivateRoute>}/>
-                        <Route path="/game-results" element={<PrivateRoute><GameResults/></PrivateRoute>}/>
+                        <Route path="/game-results" element={<PrivateRoute><GameResults keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/leader-board" element={<PrivateRoute><LeaderBoard keycloak={keycloak} /></PrivateRoute>}/>
                         <Route path="/friends" element={<PrivateRoute><Friends keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/profile" element={<PrivateRoute><Profile keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="/single-player" element={<PrivateRoute><SinglePlayer keycloak={keycloak} user={user} /></PrivateRoute>}/>
+                        <Route path="/multi-player" element={<PrivateRoute><MultiPlayer keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="/create-quiz" element={<PrivateRoute><CreateQuiz keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="*" element={<PrivateRoute><PageNotFound /></PrivateRoute>}/>
                     </Route>
+
+                    {/* <Route path="/login" element={<Login/>}/> */}
+                    {/*<Route path="/signup" element={<Signup/>}/>*/}
+
+                    {/* <Route path="/logout" element={<PrivateRoute><Logout keycloak={keycloak} /></PrivateRoute>}/> */}
                 </Routes>
             </BrowserRouter>
         </ReactKeycloakProvider>

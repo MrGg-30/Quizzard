@@ -88,6 +88,22 @@ const getPendingRequestsByUsername = async (token, username) => {
     })
 }
 
+const getUserbySearchPrefix = async (token, username) => {
+    return API.get(`/user/${username}`, {
+        headers: { 'Authorization': bearerAuth(token) }
+    })
+}
+const sendFriendRequest = async (token, data) => {
+    return API.post(`/friends/request`, data, {
+        headers: { 'Authorization': bearerAuth(token) }
+    })
+}
+const updateFriendRequest = async (token, data) => {
+    return API.post(`/friends/response`, data, {
+        headers: { 'Authorization': bearerAuth(token) }
+    })
+}
+
 const getLeaderBoardByCategory = async (token, category) => {
     return API.get(`/leaderboard/rating/${category}`, {
         headers: { 'Authorization': bearerAuth(token) }
@@ -121,6 +137,9 @@ export const Api = {
     getPendingRequestsByUsername,
     getLeaderBoardByCategory,
     createQuiz,
-    submitQuiz
+    submitQuiz,
+    getUserbySearchPrefix,
+    sendFriendRequest,
+    updateFriendRequest
 }
 

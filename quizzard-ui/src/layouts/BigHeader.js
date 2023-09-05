@@ -1,9 +1,9 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import DashboardHeader from "../components/DashboardHeader";
 
-function BigHeader(props) {
+function BigHeader({ keycloak }) {
     return <>
-        <DashboardHeader/>
+        <DashboardHeader keycloak={keycloak} />
         <Outlet/>
     </>;
 }

@@ -7,6 +7,20 @@
   box-sizing: border-box;
 }
 
+.correct {
+  background-color: green;
+}
+
+/* Define styles for selected correct answer */
+.selected-correct {
+  background-color: green;
+}
+
+/* Define styles for selected wrong answer */
+.selected-wrong {
+  color: red;
+}
+
 .master-nav {
   height: 100px;
   width: 100%;
@@ -67,7 +81,7 @@
 
 .dashboard-header {
   background-image: url("/media/header.png");
-  height: 442px;
+  height: 80vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -136,6 +150,7 @@
 
 .dashboard-show-case {
   padding: 0 60px;
+  margin-bottom: 60px;
 }
 .dashboard-show-case > p.title {
   color: #EF6262;

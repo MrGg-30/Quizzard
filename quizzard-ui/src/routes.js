@@ -7,7 +7,8 @@ const routes = {
     friends: '/friends',
     userProfile: '/profile',
     createQuiz: 'create-quiz', 
-    singlePlayer: '/single-player'
+    singlePlayer: '/single-player',
+    multiPlayer: '/multi-player'
 }
 
 export { routes }

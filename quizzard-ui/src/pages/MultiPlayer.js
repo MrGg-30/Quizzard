@@ -1,7 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Api } from '../api';  // Make sure the Api import is correct
 import { useLocation } from 'react-router-dom';
-import { Progress } from 'semantic-ui-react'
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { routes } from '../routes';
+import { useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import {
   CircularProgressbar,
@@ -11,16 +15,23 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 import RadialSeparators from "../components/RadialSeparators";
 
-function SinglePlayer({ keycloak, user }) {
-  const location = useLocation();
-  const { selectedCategory, selectedUser } = location.state || {};
+
+function MultiPlayer({ keycloak, user }) {
+    
   const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
+  const [client, setClient] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [friendsScore, setFriendsScore] = useState(null);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [timeRemaining, setTimeRemaining] = useState(20);
+  const [timeRemaining, setTimeRemaining] = useState(20); 
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const selectedCategory = query.get("category");
+  const anotherUser = query.get("anotherUser");
   const getAndSetQuestions = async () => {
     try {
       if (selectedCategory) {
@@ -35,6 +46,46 @@ function SinglePlayer({ keycloak, user }) {
       console.error("An error occurred:", error);
     }
   };
+
+  useEffect(() => {
+    const newClient = new Client({
+      webSocketFactory: () => new SockJS('http://localhost:8081/ws'),
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+    });
+
+    newClient.onConnect = (frame) => {
+      console.log('Connected: ' + frame);
+
+      // Stomp headers for authentication
+      const headers = {
+        'Authorization': `Bearer ${keycloak.token}`
+      }
+
+      var path3 = '/user/' + user.username + '/game-result'
+      newClient.subscribe(path3, (message) => {
+        const response = JSON.parse(message.body);
+        if (response.anotherUsername === user.username) {
+          console.log("Game result of another user received:", response);
+          console.log("Sxvisi Qula: " + response.score)
+          setFriendsScore(response.score)
+          console.log("Chemi Qula: " + score)
+        }
+      }, headers);
+    };
+
+
+    newClient.activate();
+    setClient(newClient);
+
+    return () => {
+      if (newClient.connected) {
+        newClient.deactivate();
+      }
+    };
+  }, [keycloak]);
 
   useEffect(() => {
     if (keycloak?.token) {
@@ -52,30 +103,48 @@ function SinglePlayer({ keycloak, user }) {
         clearTimeout(timer);
       };
     } else if (timeRemaining === 0) {
-      handleNextQuestion(false);
+      handleNextQuestion(false); 
     }
   }, [timeRemaining, isQuizCompleted]);
 
-  const handleNextQuestion = async (isCorrect) => {
+  useEffect(() => {
+    console.log("Debug: friendsScore", friendsScore); 
+    if (client && isQuizCompleted) {
+        const gameResult = {
+            category: selectedCategory,
+            currentUsername: user.username,
+            anotherUsername: anotherUser,
+            score: score
+          };
+        client.publish({
+            destination: '/app/game-result',
+            body: JSON.stringify(gameResult),
+          });
+    }
+    
+    
+  }, [client, isQuizCompleted]);
+
+  useEffect(() => {
+    if (isQuizCompleted && friendsScore) {
+        console.log("Navigation to other page!!!!!")
+        navigate(`${routes.gameResults}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
+    }
+  }, [isQuizCompleted, friendsScore, navigate]);
+
+  const handleNextQuestion = (isCorrect) => {
     if (isCorrect) {
-      setScore((prevScore) => prevScore + 1);
+      setScore(score + 1);
     }
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      const data = {
-        category: selectedCategory,
-        playerScores: {
-          username: user?.username,
-          score: score,
-        }
-      }
       setIsQuizCompleted(true);
     }
 
     setSelectedAnswer(null);
-    setTimeRemaining(20);
+    setTimeRemaining(20); 
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -86,6 +155,7 @@ function SinglePlayer({ keycloak, user }) {
       handleNextQuestion(answer === currentQuestion.correctAnswer);
     }, 1000);
   };
+
   const colors = ['#9EA1D4', '#FFCBCBDD', '#A8D1D1', '#FD8A8A']
 
   return (
@@ -134,7 +204,7 @@ function SinglePlayer({ keycloak, user }) {
       ) : (
         <div className="quiz-completed">
           <h2>Quiz Completed!</h2>
-          <p>Your Score: {score}</p>
+          <p>Waiting for your opponent to finish!</p>
         </div>
       )}
 
@@ -163,4 +233,4 @@ function SinglePlayer({ keycloak, user }) {
   );
 }
 
-export default SinglePlayer;
+export default MultiPlayer;
