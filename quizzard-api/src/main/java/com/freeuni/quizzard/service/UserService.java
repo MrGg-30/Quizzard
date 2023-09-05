@@ -14,11 +14,13 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -43,6 +45,7 @@ public class UserService {
         newUser.setTotalPoints(0);
         newUser.setProfilePictureUrl(defaultPictureUrl());
         userRepository.save(newUser);
+        uploadImage(newUser.getUsername());
     }
 
     public UserDto getUser(String username) {
@@ -99,6 +102,29 @@ public class UserService {
             return "Successfully";
         } catch (IOException e) {
             return "Fail";
+        }
+    }
+
+    public void uploadImage(String username) {
+        File file = new File("src/main/resources/user-default-image/profile.png");
+        if (!file.exists()) {
+            return;
+        }
+
+        String key = username + "-profile-picture";
+        PutObjectResponse response = amazonS3.putObject(PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build(), RequestBody.fromFile(file));
+
+        if (response.sdkHttpResponse().isSuccessful()) {
+            User user = userRepository.findUserByUsername(username);
+            if (user == null) {
+                return;
+            }
+            user.setProfilePictureUrl(key);
+            userRepository.save(user);
+        } else {
         }
     }
 
