@@ -1,25 +1,20 @@
 import React from 'react';
 import '../scss/notificationCard.scss';
+import { config } from '../Constants';
 
 function Notification({ onAccept, onReject, senderUsername, category }) {
   return (
-    <div className="header">
+    <div className="notification-header">
       <div className='div-header'>
         <div>
           <p className='text'>QUIZ REQUEST</p>
-        </div>
-        <div>
-          <img src="/bellIcone.png" alt="Icon" />
         </div>
       </div>
 
       <div className='grid-wraper'>
         <div className="grid-container">
           <div className="column1">
-            <img
-              src="/userImage.png"
-              alt="Avatar"
-            />
+          <img src={`${config.url.S3_BUCKET_URL}/${senderUsername}-profile-picture` || "/media/default-dp.png"}  />
           </div>
           <div className="column2">
             <div className="row1">{senderUsername}</div>

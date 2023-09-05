@@ -1,6 +1,27 @@
-import { Modal } from 'semantic-ui-react'
+import ReactModal from 'react-modal';
 import React from 'react';
 import NotificationCard from './NotificationCard';
+
+const customStyles = {
+  overlay: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: ' rgba(0, 0, 0, 0.7)',
+  },
+  content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      padding: 0,
+      borderRadius: 6,
+      width: 'auto',
+      height: 'auto',
+  },
+};
 
 function NotificationModal({ onAccept, onReject, isOpen, senderUsername, category }) {
     const [open, setOpen] = React.useState(isOpen);
@@ -10,17 +31,14 @@ function NotificationModal({ onAccept, onReject, isOpen, senderUsername, categor
     }, [isOpen]);
   
     return (
-      <Modal
-        open={open}
+      <ReactModal
+        isOpen={open}
         onClose={() => setOpen(false)}
-        size='tiny'
-        centered
-        style={{ display: 'flex', justifyContent: "center", alignItems: "center", width: 456 }}
+        style={customStyles}
       >
-        <Modal.Content style={{ background: "linear-gradient(236deg, #1D5B79 0%, #77bfe3 100%)", padding: 0 }}>
-          <NotificationCard onAccept={onAccept} onReject={onReject} senderUsername={senderUsername} category={category} />
-        </Modal.Content>
-      </Modal>
+          <NotificationCard onAccept={onAccept} onReject={onReject} senderUsername={senderUsername} category={category}/>
+        
+      </ReactModal>
     )
   }
   

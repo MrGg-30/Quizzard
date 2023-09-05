@@ -1,8 +1,17 @@
-.header {
+.notification-header {
     width: 456px;
     height: 248px;
     border-radius: 6px;
     background: linear-gradient(90deg, #D8544C 0%, #F38A77 100%);
+}
+
+@media (max-width: 768px) {
+    .notification-header {
+        width: 99vw;
+        height: 248px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #D8544C 0%, #F38A77 100%);
+    }
 }
 
 .div-header {
@@ -11,7 +20,7 @@
     flex-shrink: 0;
     border-radius: 6px;
     background: linear-gradient(180deg, #F38977 0%, #D9564E 100%);
-    padding: 15px 15px;
+    padding: 0px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
