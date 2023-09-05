@@ -155,7 +155,7 @@ function Friends({ keycloak, user }) {
                         </div>
                     ))
                 ) : (
-                    <p className='text-center w-100'>Oops no friends found!!!</p>
+                    <p className='text-center w-100'>No friends Yet</p>
                 )
                 }
             </div>

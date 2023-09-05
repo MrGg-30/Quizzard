@@ -115,15 +115,21 @@ function SinglePlayer({ keycloak, user }) {
               className={`op ${selectedAnswer === currentQuestion?.correctAnswer ? 'selected-correct' : 'selected-wrong'}`}
               key={answer}
               style={{
-                backgroundColor: colors[index],
-                color: 'black',
-                backgroundColor:
-                  selectedAnswer ? selectedAnswer === answer
-                    ? selectedAnswer === currentQuestion.correctAnswer
-                      ? 'green'
-                      : 'red'
-                    : "#D9D9D9"
-                    : colors[index]
+                backgroundColor: (() => {
+                  if (selectedAnswer) {
+                      if (selectedAnswer === answer) {
+                          return selectedAnswer === currentQuestion.correctAnswer
+                          ? 'green'
+                          : 'red';
+                      } else if (answer === currentQuestion.correctAnswer) {
+                          return 'green';
+                      } else {
+                          return '#D9D9D9'; // gray color for unselected options
+                      }
+                  }
+                  return colors[index];
+              })(),
+              color: 'black'
               }} onClick={() => handleAnswerClick(answer)}
             >
               {answer}

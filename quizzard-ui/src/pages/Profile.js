@@ -72,7 +72,7 @@ function Profile({ keycloak, user }) {
                                 </div>
                             ))
                         ) : (
-                            <p className='text-center w-100'>Oops no friends found!!!</p>
+                            <p className='text-center w-100'>No Friends Yet</p>
                         )}
                     
                 </div>
