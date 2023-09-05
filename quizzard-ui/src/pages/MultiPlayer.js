@@ -51,7 +51,7 @@ function MultiPlayer({ keycloak, user }) {
 
   useEffect(() => {
     const newClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8081/ws'),
+      webSocketFactory: () => new SockJS('http://ec2-54-162-169-60.compute-1.amazonaws.com:8081/ws'),
       debug: function (str) {
         console.log(str);
       },
