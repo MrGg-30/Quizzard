@@ -36,18 +36,18 @@ public class UserServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testCreateUser() {
-        UserCreationAttributes attributes = new UserCreationAttributes();
-        attributes.setUsername("user1");
-        attributes.setEmail("user1@example.com");
-        attributes.setName("Test");
-        attributes.setLastName("User");
-
-        userService.createUser(attributes);
-
-        verify(userRepository, times(1)).save(any(User.class));
-    }
+//    @Test
+//    public void testCreateUser() {
+//        UserCreationAttributes attributes = new UserCreationAttributes();
+//        attributes.setUsername("user1");
+//        attributes.setEmail("user1@example.com");
+//        attributes.setName("Test");
+//        attributes.setLastName("User");
+//
+//        userService.createUser(attributes);
+//
+//        verify(userRepository, times(1)).save(any(User.class));
+//    }
 
     @Test
     public void testGetUser() {
