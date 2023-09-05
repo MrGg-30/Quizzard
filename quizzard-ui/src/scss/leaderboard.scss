@@ -1,0 +1,64 @@
+.leaderboard-category-selection {
+    margin-top: 2rem;
+    width: 100%;
+
+    .section-wrapper {
+        display: flex;
+        align-items: center;
+        column-gap: 5vw;
+        justify-content: center;
+
+        .left {
+            h1 {
+                color: #4A7791;
+                text-align: center;
+                font-family: Saira Condensed;
+                font-size: 42px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            p {
+                color: rgba(239, 98, 98, 0.80);
+                text-align: center;
+                font-family: Saira Condensed;
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            input::placeholder {
+                color: rgba(164, 173, 175, 0.90);
+                font-family: Saira Condensed;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+        .right {
+            img {
+                width: 100%;
+                max-width: 450px;
+                object-fit: contain;
+            }
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .section-wrapper {
+            .left {
+                p {
+                    br {
+                        display: none;
+                    }
+                }
+            }
+            .right {
+                img {
+                    display: none;
+                }
+            }
+        }
+    }
+}
