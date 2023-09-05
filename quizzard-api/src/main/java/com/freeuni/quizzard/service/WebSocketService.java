@@ -2,6 +2,7 @@ package com.freeuni.quizzard.service;
 
 import com.freeuni.quizzard.model.FriendRequest;
 import com.freeuni.quizzard.model.GameRequest;
+import com.freeuni.quizzard.model.GameResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class WebSocketService {
 
     public void sendGameResponse(String userId, GameRequest message) {
         messagingTemplate.convertAndSendToUser(userId,"/game-response",message);
+    }
+
+    public void sendGameResult(String userId, GameResult message) {
+        messagingTemplate.convertAndSendToUser(userId,"/game-result",message);
     }
 }
