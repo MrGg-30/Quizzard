@@ -8,7 +8,7 @@ import SockJS from 'sockjs-client';
 import NotificationModal from '../components/NotificationModal';
 import { setMultiGlobalQuestions } from '../global';
 
-function PlayWithFriend({ keycloak }) {
+function PlayWithFriend({ keycloak, user }) {
   const navigate = useNavigate();
   const [singlePlayerClicked, setSinglePlayerClicked] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -16,20 +16,20 @@ function PlayWithFriend({ keycloak }) {
   const [selectedFriend, setSelectedFriend] = useState('');
   const [client, setClient] = useState(null);
   const [gameRequestReceived, setGameRequestReceived] = useState(null);
-  const [user, setUser] = useState(null);
+//   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-    try {
-        const fetchedUser = await Api.getUserByToken(keycloak.token); 
-        setUser(fetchedUser.data);
-    } catch (error) {
-        console.error("Failed to fetch user:", error);
-    }
-    };
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//     try {
+//         const fetchedUser = await Api.getUserByToken(keycloak.token); 
+//         setUser(fetchedUser.data);
+//     } catch (error) {
+//         console.error("Failed to fetch user:", error);
+//     }
+//     };
 
-    fetchUser();
-}, []);   
+//     fetchUser();
+// }, []);   
 
   useEffect(() => {
     const newClient = new Client({
