@@ -61,18 +61,20 @@ function Profile({ keycloak, user }) {
                 <CountCards icon="/media/coin.png" count={user?.totalPoints || 0} name="total points"/>
             </div>
             <div className="friends">
-                <p className="title">Friends</p>
-                <div className="user-node">
-                    {user?.friends?.length ? (
-                        user.friends.map(f => (
-                            <>
-                                <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
-                                <p>{f}</p>
-                            </>
-                        ))
-                    ) : (
-                        <p className='text-center w-100'>Oops no friends found!!!</p>
-                    )}
+                <div className="friends">
+                    <p className="title">Friends</p>
+            
+                        {user?.friends?.length ? (
+                            user.friends.map(f => (
+                                <div className="user-node">
+                                    <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
+                                    <p>{f}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p className='text-center w-100'>Oops no friends found!!!</p>
+                        )}
+                    
                 </div>
             </div>
         </div>
