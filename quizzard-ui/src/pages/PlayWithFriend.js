@@ -5,8 +5,8 @@ import { Api } from '../api'
 import Select from 'react-select';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 import NotificationModal from '../components/NotificationModal';
+import { setMultiGlobalQuestions } from '../global';
 
 function PlayWithFriend({ keycloak, user }) {
   const navigate = useNavigate();
@@ -16,9 +16,20 @@ function PlayWithFriend({ keycloak, user }) {
   const [selectedFriend, setSelectedFriend] = useState('');
   const [client, setClient] = useState(null);
   const [gameRequestReceived, setGameRequestReceived] = useState(null);
-  const [questions, setQuestions] = useState(null);
+//   const [user, setUser] = useState(null);
 
-  
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//     try {
+//         const fetchedUser = await Api.getUserByToken(keycloak.token); 
+//         setUser(fetchedUser.data);
+//     } catch (error) {
+//         console.error("Failed to fetch user:", error);
+//     }
+//     };
+
+//     fetchUser();
+// }, []);   
 
   useEffect(() => {
     const newClient = new Client({
@@ -52,6 +63,9 @@ function PlayWithFriend({ keycloak, user }) {
         if (response.from === user.username) {
           console.log("Game response received:", response);
           if (response.status == 'ACCEPTED') {
+            // fetch questions
+            var questions = response.questions
+            setMultiGlobalQuestions(questions)
             navigate(`${routes.multiPlayer}?category=${response.category}&anotherUser=${response.to}`);
           }
         }
@@ -130,23 +144,30 @@ function PlayWithFriend({ keycloak, user }) {
   };
 
 
-  const handleSendResponseClick = (responseStatus) => {
+  const handleSendResponseClick = async (responseStatus) => {
     if (gameRequestReceived && client && client.connected) {
       var category = gameRequestReceived.category
 
-      const gameResponse = {
-        ...gameRequestReceived,
-        status: responseStatus
-      };
-      client.publish({
-        destination: '/app/game-response',
-        body: JSON.stringify(gameResponse),
-      });
       
        // Reset game request state
        if (responseStatus == 'ACCEPTED') {
+        const response = await Api.getQuizQuestionsByCategory(keycloak.token, category);  
+
+        if (response.status === 200) {
+          const gameResponse = {
+            ...gameRequestReceived,
+            status: responseStatus,
+            questions: response.data.questions
+          };
+          client.publish({
+            destination: '/app/game-response',
+            body: JSON.stringify(gameResponse),
+          });
+
+          setMultiGlobalQuestions(response.data.questions);
+        }
         console.log("accepted quiz and will start to play soon!")
-       
+
         navigate(`${routes.multiPlayer}?category=${category}&anotherUser=${gameRequestReceived.from}`);
        }
        setGameRequestReceived(null); 
@@ -192,11 +213,6 @@ function PlayWithFriend({ keycloak, user }) {
         onAccept={() => handleSendResponseClick('ACCEPTED')}
         onReject={() => handleSendResponseClick('DECLINED')}
       />
-        // <div className="game-request-popup">
-        //   <p>{`${gameRequestReceived.from} has sent you a game request for ${gameRequestReceived.category}. Do you accept?`}</p>
-        //   <button onClick={() => handleSendResponseClick('ACCEPTED')}>Accept</button>
-        //   <button onClick={() => handleSendResponseClick('DECLINED')}>Decline</button>
-        // </div>
       )}
     </div>
   );

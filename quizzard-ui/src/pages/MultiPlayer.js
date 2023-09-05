@@ -14,6 +14,7 @@ import {
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import RadialSeparators from "../components/RadialSeparators";
+import { getMultiGlobalQuestions } from '../global';
 
 
 function MultiPlayer({ keycloak, user }) {
@@ -32,20 +33,20 @@ function MultiPlayer({ keycloak, user }) {
   const query = new URLSearchParams(location.search);
   const selectedCategory = query.get("category");
   const anotherUser = query.get("anotherUser");
-  const getAndSetQuestions = async () => {
-    try {
-      if (selectedCategory) {
-        const response = await Api.getQuizQuestionsByCategory(keycloak.token, selectedCategory);
+  // const getAndSetQuestions = async () => {
+  //   try {
+  //     if (selectedCategory) {
+  //       const response = await Api.getQuizQuestionsByCategory(keycloak.token, selectedCategory);
 
-        if (response.status === 200) {
-          setQuestions(response.data.questions);
-          setIsLoading(false);
-        }
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  //       if (response.status === 200) {
+  //         setQuestions(response.data.questions);
+  //         setIsLoading(false);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
   useEffect(() => {
     const newClient = new Client({
@@ -68,10 +69,7 @@ function MultiPlayer({ keycloak, user }) {
       newClient.subscribe(path3, (message) => {
         const response = JSON.parse(message.body);
         if (response.anotherUsername === user.username) {
-          console.log("Game result of another user received:", response);
-          console.log("Sxvisi Qula: " + response.score)
           setFriendsScore(response.score)
-          console.log("Chemi Qula: " + score)
         }
       }, headers);
     };
@@ -88,9 +86,8 @@ function MultiPlayer({ keycloak, user }) {
   }, [keycloak]);
 
   useEffect(() => {
-    if (keycloak?.token) {
-      getAndSetQuestions();
-    }
+    setQuestions(getMultiGlobalQuestions())
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -119,7 +116,7 @@ function MultiPlayer({ keycloak, user }) {
         client.publish({
             destination: '/app/game-result',
             body: JSON.stringify(gameResult),
-          });
+          });  
     }
     
     
@@ -128,6 +125,14 @@ function MultiPlayer({ keycloak, user }) {
   useEffect(() => {
     if (isQuizCompleted && friendsScore) {
         console.log("Navigation to other page!!!!!")
+        const results = {
+          category: selectedCategory,
+          playerScores: {
+            [anotherUser]: friendsScore,
+            [user.username]: score
+          }
+        }
+        Api.submitQuiz(keycloak.token, results)
         navigate(`${routes.gameResults}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
     }
   }, [isQuizCompleted, friendsScore, navigate]);

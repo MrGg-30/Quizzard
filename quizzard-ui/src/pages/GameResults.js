@@ -1,10 +1,14 @@
 import React from 'react';
+import { routes } from '../routes';
+import { useNavigate } from 'react-router-dom';
+
 import { useLocation } from 'react-router-dom';
 import { config } from '../Constants';
 
 
 function GameResults({ keycloak, user }) {
     const location = useLocation();
+    const navigate = useNavigate();
     const query = new URLSearchParams(location.search);
     const score = query.get("score");
     const friendsScore = query.get("friendsScore");
@@ -30,7 +34,7 @@ function GameResults({ keycloak, user }) {
       </div>
       <div className="pics">
         <img src="/media/game-rel2.png" alt="img"/>
-        <a href="#">Home</a>
+        <a href="#" onClick={() => navigate(routes.main)}>Home</a>
         <img src="/media/game-rel1.png" alt="img"/>
       </div>
     </div>

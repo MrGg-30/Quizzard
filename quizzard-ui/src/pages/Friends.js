@@ -176,7 +176,8 @@ function Friends({ keycloak, user }) {
                             <div className="container">
                                 {console.log(f)}
                                 <div className="image-container">
-                                    {/* <img src="imageUrl" className="image" /> */}
+                                <img src={`${config.url.S3_BUCKET_URL}/${f.username}-profile-picture` || "/media/default-dp.png"}  />
+
                                 </div>
                                 <div >
                                     {f?.username}
@@ -196,7 +197,7 @@ function Friends({ keycloak, user }) {
                 {pendingRequests?.length ? (
                     pendingRequests.map(f => (
                         <div className="user-node">
-                            <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
+                            <img src={`${config.url.S3_BUCKET_URL}/${f.from}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
                             <p>{f.from}</p>
                             <div className="icons" style={{ display: 'flex', gap: 15 }}>
                                 <i onClick={() => handleAcceptRequest(f.from)} style={{ cursor: "pointer" }} className="fa fa-check"></i>

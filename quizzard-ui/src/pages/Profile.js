@@ -1,10 +1,33 @@
 import React from 'react';
 import CountCards from "../components/CountCards";
+import { useEffect, useState } from 'react';
 import { config } from '../Constants';
-
 import { Api } from '../api'
 
 function Profile({ keycloak, user }) {
+    // const [user, setUser] = useState(null);
+
+    // useEffect(() => {
+
+    //     const fetchUser = async () => {
+    //     try {
+    //         const fetchedUser = await Api.getUserByToken(keycloak.token); 
+    //         setUser(fetchedUser.data);
+    //     } catch (error) {
+    //         console.error("Failed to fetch user:", error);
+    //     }
+    //     };
+
+    //     const timer = setTimeout(() => {
+    //         fetchUser();
+    //     }, 2000);  // For 1 second. Change to 2000 for 2 seconds.
+
+    //     // Cleanup function to clear the timer
+    //     return () => {
+    //         clearTimeout(timer);
+    //     };
+    // }, []); 
+
     const handleProfilePicUpload = async (event) => {
         const file = event.target.files[0];
 
