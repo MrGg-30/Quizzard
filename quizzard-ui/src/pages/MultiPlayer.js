@@ -124,7 +124,6 @@ function MultiPlayer({ keycloak, user }) {
 
   useEffect(() => {
     if (isQuizCompleted && friendsScore) {
-        console.log("Navigation to other page!!!!!")
         const results = {
           category: selectedCategory,
           playerScores: {
@@ -133,7 +132,14 @@ function MultiPlayer({ keycloak, user }) {
           }
         }
         Api.submitQuiz(keycloak.token, results)
-        navigate(`${routes.gameResults}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
+        if (score < friendsScore) {
+          navigate(`${routes.gameResultsLost}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
+        } else if (score > friendsScore) {
+          navigate(`${routes.gameResults}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
+        } else {
+          navigate(`${routes.gameResultsTie}?score=${score}&friendsScore=${friendsScore}&friendsName=${anotherUser}`);
+        }
+        
     }
   }, [isQuizCompleted, friendsScore, navigate]);
 

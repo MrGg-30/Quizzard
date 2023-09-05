@@ -18,6 +18,8 @@ import { useState } from "react";
 import CreateQuiz from "./pages/CreateQuiz";
 import SinglePlayer from "./pages/SinglePlayer";
 import MultiPlayer from "./pages/MultiPlayer";
+import GameResultsLost from "./pages/GameResultsLost";
+import GameResultsTie from "./pages/GameResultsTie";
 
 function App() {
     const [user, setUser] = useState(undefined)
@@ -75,6 +77,8 @@ function App() {
                         <Route path="/play-with-friends" element={<PrivateRoute><PlayWithFriend keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/play-start" element={<PrivateRoute><PlayStart/></PrivateRoute>}/>
                         <Route path="/game-results" element={<PrivateRoute><GameResults keycloak={keycloak} user={user}/></PrivateRoute>}/>
+                        <Route path="/game-results-lost" element={<PrivateRoute><GameResultsLost keycloak={keycloak} user={user}/></PrivateRoute>}/>
+                        <Route path="/game-results-tie" element={<PrivateRoute><GameResultsTie keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/leader-board" element={<PrivateRoute><LeaderBoard keycloak={keycloak} /></PrivateRoute>}/>
                         <Route path="/friends" element={<PrivateRoute><Friends keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/profile" element={<PrivateRoute><Profile keycloak={keycloak} user={user} /></PrivateRoute>}/>
