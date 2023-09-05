@@ -1,0 +1,133 @@
+.header {
+    width: 456px;
+    height: 248px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #D8544C 0%, #F38A77 100%);
+}
+
+.div-header {
+    width: 100%;
+    height: 57.786px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #F38977 0%, #D9564E 100%);
+    padding: 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text {
+    color: #FFF;
+    // text-align: left;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.grid-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 138.864px 1fr;
+    /* 2 columns: first is fixed, second takes the remaining space */
+    grid-gap: 30px;
+    /* Adjust the gap between columns */
+}
+
+.column1 img {
+    width: 138.864px;
+    height: 136.955px;
+    flex-shrink: 0;
+    border-radius: 138.864px;
+}
+
+.column2 {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    gap: 15px;
+    align-items: flex-start;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.row1 {
+    color: #FFF;
+}
+
+.row2 {
+    color: #F5F5F5;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.row3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    /* Adjust the gap between buttons */
+}
+
+.category-name {
+    color: #FFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.button-div {
+    display: flex;
+    gap: 17px;
+}
+
+.button1,
+.button2 {
+    width: 93.827px;
+    height: 31.463px;
+    flex-shrink: 0;
+    border-radius: 50px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button1 {
+    background: #E23744;
+    color: #FFF;
+    text-align: center;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.button2 {
+    background: #EEE;
+    color: #878787;
+    text-align: center;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
