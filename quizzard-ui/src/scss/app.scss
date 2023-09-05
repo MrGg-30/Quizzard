@@ -645,56 +645,82 @@
     > .position-bars {
       display: flex;
       align-items: flex-end;
-      padding-top: 50px;
+      padding-top: 70px;
+
+  
 
       > .p1, .p2, .p3 {
         width: 120px;
         display: flex;
         align-items: flex-start;
+        padding-top: 30px;
         justify-content: center;
         color: #fff;
-        font-size: 56px;
+        font-size: 40px;
         font-weight: 700;
         position: relative;
 
+        > .usser {
+          width: 120px;
+          display: flex;
+          align-items: flex-start;
+          padding-top: 50px;
+          justify-content: center;
+          color: #fff;
+          font-size: 20px;
+          font-weight: 600;
+          position: absolute;
+        }
+
         > .badge {
           position: absolute;
-          top: -70px;
+          top: -90px;
+          right: 46px;
 
           > img.m {
             width: 24px;
-            height: 24px;
+            height: px;
             z-index: 4;
-            //position: absolute;
+            position: absolute;
+            top: 38px;
+            right: 0px
           }
 
           > img.dp {
-            width: 42px;
-            height: 42px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             position: absolute;
-            top: 6px;
-            right: -10px;
+            top: -9px;
+            right: -15px;
             z-index: -1;
           }
+          
+        
         }
       }
 
       > .p1 {
         background-color: #EF6262;
-        opacity: 0.8;
-        height: 200px;
+        height: 220px;
+        opacity: 0.9;
+        border-radius: 2%;
 
       }
 
       > .p2 {
         background-color: #EF6262;
-        height: 150px;
+        height: 170px;
+        opacity: 0.95;
+        border-radius: 2%;
       }
 
       > .p3 {
         background-color: #EF6262;
-        height: 100px;
+        height: 130px;
+        opacity: 0.9;
+        border-radius: 2%;
+
       }
     }
   }

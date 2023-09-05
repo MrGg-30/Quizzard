@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select'
-
+import { config } from '../Constants';
 import { Api } from '../api'
 import Img from '../assets/images/search-quizzard-right.png'
 import '../scss/leaderboard.scss'
@@ -78,6 +78,7 @@ function LeaderBoard({ keycloak }) {
     }, [])
 
     console.log({ leaderboardDetails })
+    const topPerformers = leaderboardDetails?.slice(0, 3);
 
     return (
         <div className="leader-board">
@@ -89,33 +90,24 @@ function LeaderBoard({ keycloak }) {
                         Top Performers in <b>{selectedCategory}</b>
                     </p>
                     <div className="left">
-
                         <div className="position-bars">
-                            <div className="p2">2
-                                <div className="badge">
-                                    <img className="dp" src="/media/default-dp.png" alt="dp" />
-                                    <img className="m" src="/media/p2.png" alt="img" />
+                            {leaderboardDetails?.length > 0 ? leaderboardDetails?.slice(0, 3)?.map((item, index) => (
+                                <div key={index} className={`p${index + 1}`}>{index + 1}
+                                    <div className="badge">
+                                        <img className="dp" src={`${config.url.S3_BUCKET_URL}/${item?.username}-profile-picture` } alt="dp" />
+                                        <img className="m" src={`/media/p${index + 1}.png`} alt="img" />
+                                    </div>
+                                    <div className="usser">{item?.username}</div>
                                 </div>
-                            </div>
-                            <div className="p1">1
-                                <div className="badge">
-                                    <img className="dp" src="/media/default-dp.png" alt="dp" />
-                                    <img className="m" src="/media/p1.png" alt="img" />
-                                </div>
-                            </div>
-                            <div className="p3">3
-                                <div className="badge">
-                                    <img className="dp" src="/media/default-dp.png" alt="dp" />
-                                    <img className="m" src="/media/p3.png" alt="img" />
-                                </div>
-                            </div>
+                                
+                            )) : null}
                         </div>
 
 
                     </div>
                     <div className="right">
                         <div className="point-list">
-                            {leaderboardDetails?.length > 0 ? leaderboardDetails?.map((item, index) => {
+                            {leaderboardDetails?.length > 2 ?  leaderboardDetails.slice(3).map((item, index) => {
                                 return (
                                     <div className="point" key={index}>
                                         <div className="medal">
