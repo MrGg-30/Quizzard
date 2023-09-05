@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Loader } from 'semantic-ui-react';
-
+import { config } from '../Constants';
 import { Api } from '../api'
 import '../scss/friends.scss'
 
@@ -150,7 +150,7 @@ function Friends({ keycloak, user }) {
                 {user?.friends?.length ? (
                     user.friends.map(f => (
                         <div className="user-node">
-                            <img src={f.image || "/media/default-dp.png"} alt="quizzard friend pic" />
+                            <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
                             <p>{f}</p>
                         </div>
                     ))
@@ -196,7 +196,7 @@ function Friends({ keycloak, user }) {
                 {pendingRequests?.length ? (
                     pendingRequests.map(f => (
                         <div className="user-node">
-                            <img src={f.image || "/media/default-dp.png"} alt="quizzard friend pic" />
+                            <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
                             <p>{f.from}</p>
                             <div className="icons" style={{ display: 'flex', gap: 15 }}>
                                 <i onClick={() => handleAcceptRequest(f.from)} style={{ cursor: "pointer" }} className="fa fa-check"></i>

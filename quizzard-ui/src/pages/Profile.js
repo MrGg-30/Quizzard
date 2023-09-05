@@ -1,5 +1,6 @@
 import React from 'react';
 import CountCards from "../components/CountCards";
+import { config } from '../Constants';
 
 import { Api } from '../api'
 
@@ -10,7 +11,7 @@ function Profile({ keycloak, user }) {
         if (file) {
             try {
               const formData = new FormData();
-              formData.append("image", file);
+              formData.append("file", file);
       
               await Api.uploadUserProfilePic(user?.username, formData, keycloak?.token)
             
@@ -26,7 +27,7 @@ function Profile({ keycloak, user }) {
     return (
         <div className="profile-layout">
             <div className="profile-header">
-                <img src={user?.profilePictureUrl?.includes('http') ? user?.profilePictureUrl : "/media/default-dp.png"} alt="quizzard user"/>
+                <img src={user?.profilePictureUrl?.includes('profile') ? `${config.url.S3_BUCKET_URL}/${user?.profilePictureUrl}` : "/media/default-dp.png"} alt="quizzard user"/>
                 <input type="file" accept="image/*" onChange={handleProfilePicUpload} />
                 <p className="name">{user?.name || 'N/A'}</p>
                 <a onClick={() => keycloak?.logout()} className="logout-btn"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a>
@@ -42,7 +43,7 @@ function Profile({ keycloak, user }) {
                     {user?.friends?.length ? (
                         user.friends.map(f => (
                             <>
-                                <img src={f.image || "/media/default-dp.png"} alt="quizzard friend pic" />
+                                <img src={`${config.url.S3_BUCKET_URL}/${f}-profile-picture` || "/media/default-dp.png"} alt="quizzard friend pic" />
                                 <p>{f}</p>
                             </>
                         ))
