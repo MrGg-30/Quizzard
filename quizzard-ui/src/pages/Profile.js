@@ -1,9 +1,24 @@
 import React from 'react';
 import CountCards from "../components/CountCards";
-
+import { useEffect, useState } from 'react';
 import { Api } from '../api'
 
-function Profile({ keycloak, user }) {
+function Profile({ keycloak }) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+        try {
+            const fetchedUser = await Api.getUserByToken(keycloak.token); 
+            setUser(fetchedUser.data);
+        } catch (error) {
+            console.error("Failed to fetch user:", error);
+        }
+        };
+
+        fetchUser();
+    }, []); 
+
     const handleProfilePicUpload = async (event) => {
         const file = event.target.files[0];
 

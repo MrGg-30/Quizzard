@@ -77,7 +77,7 @@ function App() {
                         <Route path="/game-results" element={<PrivateRoute><GameResults keycloak={keycloak} user={user}/></PrivateRoute>}/>
                         <Route path="/leader-board" element={<PrivateRoute><LeaderBoard keycloak={keycloak} /></PrivateRoute>}/>
                         <Route path="/friends" element={<PrivateRoute><Friends keycloak={keycloak} user={user}/></PrivateRoute>}/>
-                        <Route path="/profile" element={<PrivateRoute><Profile keycloak={keycloak} user={user} /></PrivateRoute>}/>
+                        <Route path="/profile" element={<PrivateRoute><Profile keycloak={keycloak} /></PrivateRoute>}/>
                         <Route path="/single-player" element={<PrivateRoute><SinglePlayer keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="/multi-player" element={<PrivateRoute><MultiPlayer keycloak={keycloak} user={user} /></PrivateRoute>}/>
                         <Route path="/create-quiz" element={<PrivateRoute><CreateQuiz keycloak={keycloak} user={user} /></PrivateRoute>}/>

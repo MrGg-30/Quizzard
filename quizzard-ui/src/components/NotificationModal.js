@@ -1,4 +1,4 @@
-import { Button,Modal } from 'semantic-ui-react'
+import { Modal } from 'semantic-ui-react'
 import React from 'react';
 import NotificationCard from './NotificationCard';
 
