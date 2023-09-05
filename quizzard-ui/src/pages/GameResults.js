@@ -3,6 +3,7 @@ import { routes } from '../routes';
 import { useNavigate } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
+import { config } from '../Constants';
 
 
 function GameResults({ keycloak, user }) {
@@ -19,7 +20,7 @@ function GameResults({ keycloak, user }) {
       <div className="players">
         <div className="me">
           <img className="top" src="/media/crown.png" alt="crown"/>
-          <img className="dp b-green" src="/media/default-dp.png" alt="avatar"/>
+          <img className="dp b-green" src={`${config.url.S3_BUCKET_URL}/${user.username}-profile-picture`} alt="avatar"/>
           <span>{user.username}</span>
         </div>
         <div className="points">
@@ -27,7 +28,7 @@ function GameResults({ keycloak, user }) {
         </div>
         <div className="friend">
           <img className="top" src="/media/hat.png" alt="hat"/>
-          <img className="dp b-red" src="/media/default-dp.png" alt="avatar"/>
+          <img className="dp b-red" src={`${config.url.S3_BUCKET_URL}/${friendName}-profile-picture`} alt="avatar"/>
           <span>{friendName}</span>
         </div>
       </div>
