@@ -56,9 +56,9 @@ function Profile({ keycloak, user }) {
                 <a onClick={() => keycloak?.logout()} className="logout-btn"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a>
             </div>
             <div className="count-cards-cover">
-                <CountCards icon="/media/target.png" count={user?.quizCount || 0} name="quizzes"/>
+                <CountCards icon="/media/target.png" count={user?.quizCount/2 || 0} name="quizzes"/>
                 <CountCards icon="/media/fire.png" count={user?.wonQuizCount || 0} name="quizzes won"/>
-                <CountCards icon="/media/coin.png" count={user?.totalPoints || 0} name="total points"/>
+                <CountCards icon="/media/coin.png" count={user?.totalPoints/2 || 0} name="total points"/>
             </div>
             <div className="friends">
                 <div className="friends">

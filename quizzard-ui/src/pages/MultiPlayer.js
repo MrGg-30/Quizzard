@@ -26,6 +26,7 @@ function MultiPlayer({ keycloak, user }) {
   const [score, setScore] = useState(0);
   const [friendsScore, setFriendsScore] = useState(null);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+  const [friendResponseReceived, setFriendResponseReceived] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(20); 
@@ -70,6 +71,8 @@ function MultiPlayer({ keycloak, user }) {
         const response = JSON.parse(message.body);
         if (response.anotherUsername === user.username) {
           setFriendsScore(response.score)
+          setFriendResponseReceived(true)
+          console.log("GOT FRIENDS SCORE: " + response.score)
         }
       }, headers);
     };
@@ -123,7 +126,7 @@ function MultiPlayer({ keycloak, user }) {
   }, [client, isQuizCompleted]);
 
   useEffect(() => {
-    if (isQuizCompleted && friendsScore) {
+    if (isQuizCompleted && friendResponseReceived) {
         const results = {
           category: selectedCategory,
           playerScores: {
@@ -141,7 +144,7 @@ function MultiPlayer({ keycloak, user }) {
         }
         
     }
-  }, [isQuizCompleted, friendsScore, navigate]);
+  }, [isQuizCompleted, friendsScore]);
 
   const handleNextQuestion = (isCorrect) => {
     if (isCorrect) {
