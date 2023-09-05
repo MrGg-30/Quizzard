@@ -16,7 +16,7 @@ function GameResultsLost({ keycloak, user }) {
 
   return (
     <div className="game-result-layout">
-      <p className="title">Unfortunately you lost...<br/> You can learn and try again!</p>
+      <p className="title">Unfortunately you lost...<br/>Try Again!</p>
       <div className="players">
         <div className="me">
           <img className="dp b-red" src={`${config.url.S3_BUCKET_URL}/${user.username}-profile-picture`} alt="avatar"/>

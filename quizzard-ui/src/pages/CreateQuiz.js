@@ -89,7 +89,7 @@ const CreateQuiz = ({keycloak}) => {
                             <img src={Img} alt='quizzard' />
                         </div>
                         <div className='right'>
-                            <h1>Welcome to our Quiz Leaderboard!</h1>
+                            <h1>Create your own Quiz Here!</h1>
                             <br />
                             <br />
                             {/* <Select placeholder="Select Category" options={options} onChange={handleCategoryChange} /> */}

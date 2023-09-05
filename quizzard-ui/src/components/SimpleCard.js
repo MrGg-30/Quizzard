@@ -1,6 +1,15 @@
 import React from 'react';
+import { routes } from '../routes';
+import { useNavigate } from 'react-router-dom';
+
 
 function SimpleCard({title, photo}) {
+    const navigate = useNavigate();
+
+    const handleStartPlaying = () => {
+        navigate(`${routes.singlePlayer}?category=${title}`);
+      };
+      
     return (
         <div className="simple-card">
             <img src={photo} alt=""/>
@@ -13,7 +22,7 @@ function SimpleCard({title, photo}) {
                 <i className="fa-regular fa-star"></i>
                 <span>(difficulty)</span>
             </div>
-            <a href="#" className="card-btn">
+            <a href="#" className="card-btn" onClick={handleStartPlaying}>
                 Play Now
             </a>
         </div>

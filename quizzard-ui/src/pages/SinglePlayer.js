@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Api } from '../api';  // Make sure the Api import is correct
 import { useLocation } from 'react-router-dom';
-import { Progress } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import {
-  CircularProgressbar,
   CircularProgressbarWithChildren,
   buildStyles
 } from "react-circular-progressbar";
@@ -13,7 +11,8 @@ import RadialSeparators from "../components/RadialSeparators";
 
 function SinglePlayer({ keycloak, user }) {
   const location = useLocation();
-  const { selectedCategory, selectedUser } = location.state || {};
+  const query = new URLSearchParams(location.search);
+  const selectedCategory = query.get("category");
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);

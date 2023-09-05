@@ -119,7 +119,7 @@ function PlayWithFriend({ keycloak, user }) {
             selectedUser: user,
           };
           console.log(state)
-          navigate(routes.singlePlayer, { state });
+          navigate(`${routes.singlePlayer}?category=${selectedCategory}`);
     } else if (client && client.connected && selectedFriend && selectedCategory) {
       const gameRequest = {
         from: user.username,
